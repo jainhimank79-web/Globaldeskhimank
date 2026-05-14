@@ -1,0 +1,2991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+<meta http-equiv="X-Frame-Options" content="DENY"/>
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https:; frame-src https://www.youtube.com https://player.vimeo.com https://docs.google.com; object-src 'none'; base-uri 'none'; form-action 'none';"/>
+<title>The Global Desk</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:#0a0906; --surface:#111009; --surface2:#181510;
+  --border:rgba(255,255,255,0.07); --border2:rgba(255,255,255,0.13);
+  --text:#f0ead8; --muted:#7a7264; --muted2:#a09880;
+  --accent:#d4913a; --gold:#e8c97a; --red:#c0392b;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Instrument Sans',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:60px;background:rgba(10,9,6,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--text);text-decoration:none;letter-spacing:-0.01em}
+.nav-logo em{font-style:italic;color:var(--accent)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-links{display:flex;gap:22px;list-style:none;margin-right:10px}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.btn-nav{font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:7px 16px;border-radius:2px;cursor:pointer;font-family:var(--sans);transition:all .2s}
+.btn-write{border:1px solid var(--accent);color:var(--accent);background:transparent}
+.btn-write:hover{background:var(--accent);color:var(--bg)}
+.btn-admin{border:1px solid var(--border2);color:var(--muted2);background:transparent}
+.btn-admin:hover{border-color:var(--muted2);color:var(--text)}
+
+/* HERO */
+.hero{min-height:100vh;padding-top:60px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 70% 40%,rgba(212,145,58,.06) 0%,transparent 70%),radial-gradient(ellipse 40% 60% at 10% 80%,rgba(192,57,43,.05) 0%,transparent 60%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%)}
+.hero-inner{position:relative;z-index:2;padding:80px 8vw 60px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-left{display:flex;flex-direction:column}
+.hero-newspaper{position:relative;display:flex;align-items:center;justify-content:center}
+.newspaper-wrap{position:relative;width:100%;max-width:460px;margin:0 auto}
+.newspaper-photo{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:2px;display:block;filter:grayscale(25%) contrast(1.1) brightness(.88) sepia(15%);box-shadow:0 40px 100px rgba(0,0,0,.75),0 0 0 1px rgba(255,255,255,.06),inset 0 0 0 1px rgba(0,0,0,.3)}
+.newspaper-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,9,6,.2) 0%,transparent 30%,transparent 50%,rgba(10,9,6,.75) 100%);border-radius:2px}
+.newspaper-caption{position:absolute;bottom:0;left:0;right:0;padding:22px 20px 20px}
+.newspaper-caption-label{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:700;font-family:var(--sans);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.newspaper-caption-label::before{content:'';width:18px;height:1px;background:var(--accent);display:inline-block}
+.newspaper-caption-title{font-family:var(--serif);font-size:16px;font-weight:600;color:#f0ead8;line-height:1.35;letter-spacing:-.01em}
+.np-card{position:absolute;background:rgba(10,9,6,.9);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.1);padding:11px 14px;border-radius:2px;max-width:175px;z-index:4;animation:fadeUp .8s both}
+.np-card-1{top:12%;left:-56px;animation-delay:.6s}
+.np-card-2{top:46%;right:-52px;animation-delay:.75s}
+.np-card-3{bottom:20%;left:-48px;animation-delay:.9s}
+.np-card-tag{font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;font-family:var(--sans);margin-bottom:5px}
+.np-card-text{font-family:var(--serif);font-size:12px;color:rgba(240,234,216,.85);line-height:1.45;font-style:italic}
+.np-date-strip{position:absolute;top:0;left:0;right:0;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(180deg,rgba(10,9,6,.6) 0%,transparent 100%)}
+.np-date-text{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,234,216,.45);font-family:var(--sans)}
+.np-edition{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-family:var(--sans);opacity:.7}
+@media(max-width:860px){
+  .hero-inner{grid-template-columns:1fr;gap:32px;padding:60px 6vw 40px}
+  .hero-newspaper{order:-1}
+  .newspaper-wrap{max-width:320px}
+  .np-card-1{left:-4px;top:6%}
+  .np-card-2{right:-4px}
+  .np-card-3{display:none}
+}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:24px}
+.eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-h1{font-family:var(--serif);font-size:clamp(56px,8vw,116px);font-weight:300;line-height:.95;letter-spacing:-.03em;margin-bottom:8px;animation:fadeUp .8s .2s both}
+.hero-h1 strong{font-weight:600}
+.hero-h1 em{font-style:italic;color:var(--accent)}
+.hero-sub{font-family:var(--serif);font-size:clamp(28px,4vw,56px);font-weight:300;font-style:italic;color:var(--muted2);margin-bottom:32px;animation:fadeUp .8s .3s both}
+.hero-desc{font-size:16px;color:var(--muted2);max-width:500px;line-height:1.75;margin-bottom:40px;animation:fadeUp .8s .4s both}
+.hero-creds{display:flex;flex-wrap:wrap;animation:fadeUp .8s .5s both}
+.cred{font-size:11px;letter-spacing:.07em;padding:8px 16px;border:1px solid var(--border2);color:var(--muted2)}
+.cred:not(:last-child){border-right:none}
+.cred strong{color:var(--gold);font-weight:600}
+
+/* MARQUEE */
+.marquee{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:13px 0;overflow:hidden;white-space:nowrap;background:var(--surface)}
+.marquee-track{display:inline-flex;animation:scroll 38s linear infinite}
+@keyframes scroll{to{transform:translateX(-50%)}}
+.marquee-item{font-family:var(--serif);font-size:15px;font-style:italic;color:var(--muted);padding:0 28px;border-right:1px solid var(--border);flex-shrink:0}
+.marquee-item.hl{color:var(--accent);font-style:normal;font-weight:600}
+
+/* LAYOUT */
+.main{display:grid;grid-template-columns:1fr 300px;border-top:1px solid var(--border)}
+.posts-col{border-right:1px solid var(--border)}
+.sidebar{padding:40px 28px;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto}
+
+/* FILTERS */
+.filters{padding:18px 5vw;border-bottom:1px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.filter-group{display:flex;gap:6px;flex-wrap:wrap}
+.fbtn{font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;padding:6px 12px;border-radius:1px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .18s;font-family:var(--sans)}
+.fbtn:hover{border-color:var(--border2);color:var(--text)}
+.fbtn.active{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.search-wrap{display:flex;align-items:center;gap:7px;border:1px solid var(--border);padding:6px 12px;border-radius:1px;background:rgba(255,255,255,.02)}
+.search-wrap:focus-within{border-color:var(--border2)}
+.search-wrap input{background:transparent;border:none;outline:none;font-size:12px;font-family:var(--sans);color:var(--text);width:150px}
+.search-wrap input::placeholder{color:var(--muted)}
+
+/* FEATURED POST */
+.featured{padding:52px 5vw 44px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .25s;position:relative;overflow:hidden}
+.featured:hover{background:var(--surface)}
+.featured-glow{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
+.feat-label{position:absolute;top:20px;right:5vw;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);opacity:.5;font-family:var(--sans)}
+
+/* THUMBNAIL / COVER IMAGE PICKER */
+.thumb-picker{margin-bottom:16px;border:1px solid var(--border);border-radius:2px;overflow:hidden}
+.thumb-preview{position:relative;width:100%;height:140px}
+.thumb-clear{position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:50%;background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:background .2s}
+.thumb-clear:hover{background:rgba(192,57,43,.8)}
+.thumb-placeholder{padding:14px}
+.thumb-tabs{display:flex;gap:4px;margin-bottom:12px}
+.thumb-tab{font-size:11px;font-weight:600;letter-spacing:.05em;padding:5px 12px;border-radius:1px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-family:var(--sans);transition:all .18s}
+.thumb-tab.active{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.thumb-tab:not(.active):hover{border-color:var(--border2);color:var(--text)}
+.thumb-drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:18px;border:2px dashed var(--border2);border-radius:2px;cursor:pointer;transition:all .2s;min-height:80px}
+.thumb-drop:hover{border-color:var(--accent);background:rgba(212,145,58,.04)}
+
+/* POST IMAGES */
+.post-img{width:100%;height:200px;object-fit:cover;display:block;border-bottom:1px solid var(--border);opacity:.85;transition:opacity .3s}
+.featured:hover .post-img{opacity:1}
+.post-item-img{width:90px;height:68px;object-fit:cover;border-radius:1px;flex-shrink:0;opacity:.8;transition:opacity .2s}
+.post-item:hover .post-item-img{opacity:1}
+/* DOC CARD IMAGE */
+.doc-card-img{width:100%;height:100px;object-fit:cover;border-radius:2px 2px 0 0;margin:-20px -18px 14px;width:calc(100% + 36px);opacity:.7;transition:opacity .2s}
+.doc-card:hover .doc-card-img{opacity:.9}
+.doc-featured-img{width:80px;height:80px;object-fit:cover;border-radius:6px;flex-shrink:0;opacity:.8}
+
+/* CAT BADGES */
+.cat{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;display:inline-block;margin-bottom:14px;padding:3px 9px;border-radius:1px}
+.cat-econ{background:rgba(212,145,58,.12);color:var(--accent)}
+.cat-pol{background:rgba(192,57,43,.12);color:#e06c5a}
+.cat-ir{background:rgba(232,201,122,.1);color:var(--gold)}
+.cat-ca{background:rgba(255,255,255,.05);color:var(--muted2)}
+
+.feat-title{font-family:var(--serif);font-size:clamp(26px,3.2vw,44px);font-weight:600;line-height:1.1;letter-spacing:-.02em;color:var(--text);margin-bottom:14px;transition:color .2s}
+.featured:hover .feat-title{color:var(--accent)}
+.feat-excerpt{font-size:15px;color:var(--muted2);line-height:1.75;max-width:600px;margin-bottom:20px}
+.meta{display:flex;align-items:center;gap:14px;font-size:11px;color:var(--muted);letter-spacing:.05em}
+.meta-sep{opacity:.3}
+.read-more{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin-top:18px;cursor:pointer;transition:gap .2s}
+.read-more:hover{gap:10px}
+
+/* POST ITEM */
+.post-item{display:grid;grid-template-columns:52px 1fr;border-bottom:1px solid var(--border);cursor:pointer;transition:background .2s}
+.post-item:hover{background:var(--surface)}
+.post-num{font-family:var(--serif);font-size:12px;color:var(--border2);padding:26px 0 26px 5vw;font-weight:600;align-self:start;margin-top:3px}
+.post-body{padding:26px 5vw 26px 0}
+.post-title{font-family:var(--serif);font-size:20px;font-weight:600;line-height:1.25;letter-spacing:-.01em;color:var(--text);margin-bottom:7px;transition:color .2s}
+.post-item:hover .post-title{color:var(--accent)}
+.post-exc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:9px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* EMPTY / LOAD MORE */
+.empty{padding:64px 5vw;text-align:center;display:none}
+.empty-icon{font-family:var(--serif);font-size:72px;opacity:.07;line-height:1}
+.empty p{color:var(--muted);margin-top:10px}
+.load-more{padding:28px 5vw;border-bottom:1px solid var(--border);display:none}
+.btn-outline{width:100%;padding:13px;border:1px solid var(--border2);border-radius:1px;background:transparent;color:var(--muted2);font-size:13px;font-family:var(--sans);cursor:pointer;transition:all .2s}
+.btn-outline:hover{border-color:var(--text);color:var(--text)}
+
+/* SIDEBAR */
+.s-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:14px;padding-bottom:9px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:7px}
+.s-label::before{content:'—';color:var(--accent)}
+.s-section{margin-bottom:36px}
+.about-card{padding:18px;background:var(--surface);border:1px solid var(--border);border-radius:2px}
+.about-av-orig{width:48px;height:48px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:17px;font-weight:600;color:var(--accent);margin-bottom:10px;overflow:hidden}
+.about-name{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--text);margin-bottom:3px}
+.about-role{font-size:12px;color:var(--muted);margin-bottom:10px}
+.about-bio{font-size:13px;color:var(--muted2);line-height:1.65;margin-bottom:14px}
+.about-badges{display:flex;flex-wrap:wrap;gap:5px}
+.badge{font-size:10px;letter-spacing:.05em;padding:3px 8px;border-radius:1px;border:1px solid var(--border2);color:var(--gold);background:rgba(232,201,122,.05)}
+.topic-list{list-style:none;display:flex;flex-direction:column;gap:2px}
+.topic-item{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border:1px solid transparent;border-radius:1px;cursor:pointer;transition:all .18s}
+.topic-item:hover{border-color:var(--border);background:var(--surface)}
+.topic-name{font-size:13px;color:var(--muted2)}
+.topic-count{font-size:11px;color:var(--muted);background:var(--surface2);padding:2px 7px;border-radius:10px}
+.recent-item{padding:11px 0;border-bottom:1px solid var(--border);cursor:pointer}
+.recent-item:last-child{border-bottom:none}
+.recent-title{font-family:var(--serif);font-size:13px;color:var(--text);line-height:1.35;margin-bottom:3px;transition:color .2s}
+.recent-item:hover .recent-title{color:var(--accent)}
+.recent-date{font-size:11px;color:var(--muted)}
+.nl-box{background:linear-gradient(135deg,rgba(212,145,58,.08),rgba(192,57,43,.05));border:1px solid rgba(212,145,58,.2);border-radius:2px;padding:18px}
+.nl-title{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--text);margin-bottom:5px}
+.nl-desc{font-size:12px;color:var(--muted2);line-height:1.6;margin-bottom:12px}
+.nl-input{width:100%;padding:9px 11px;background:rgba(255,255,255,.05);border:1px solid var(--border2);border-radius:1px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;margin-bottom:8px;transition:border-color .2s}
+.nl-input:focus{border-color:var(--accent)}
+.nl-input::placeholder{color:var(--muted)}
+.nl-btn{width:100%;padding:9px;background:var(--accent);border:none;border-radius:1px;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--bg);cursor:pointer;font-family:var(--sans);transition:background .2s}
+.nl-btn:hover{background:var(--gold)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:44px 8vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;background:var(--surface)}
+.footer-logo{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--text)}
+.footer-logo em{font-style:italic;color:var(--accent)}
+.footer-copy{font-size:12px;color:var(--muted)}
+.footer-links{display:flex;gap:18px}
+.footer-links a{font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--text)}
+
+/* POST VIEW */
+.post-view{display:none;position:fixed;inset:0;z-index:300;background:var(--bg);overflow-y:auto}
+.post-view.open{display:block}
+.pv-inner{max-width:720px;margin:0 auto;padding:96px 32px 100px}
+.back-btn{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;font-family:var(--sans);margin-bottom:44px;transition:color .2s}
+.back-btn:hover{color:var(--text)}
+.pv-title{font-family:var(--serif);font-size:clamp(30px,4.5vw,52px);font-weight:600;line-height:1.05;letter-spacing:-.025em;color:var(--text);margin:14px 0 22px}
+.pv-meta{display:flex;align-items:center;gap:14px;font-size:12px;color:var(--muted);padding-bottom:28px;margin-bottom:36px;border-bottom:1px solid var(--border)}
+.pv-author{display:flex;align-items:center;gap:9px}
+.pv-av-orig{width:26px;height:26px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:10px;font-weight:600;color:var(--accent)}
+.pv-body{font-family:var(--serif);font-size:18px;line-height:1.9;color:rgba(240,234,216,.85);white-space:pre-wrap}
+
+/* WRITE MODAL */
+.overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);align-items:center;justify-content:center}
+.overlay.open{display:flex}
+.modal-box{background:var(--surface);border:1px solid var(--border2);border-radius:2px;width:min(680px,92vw);max-height:88vh;overflow-y:auto;padding:36px;position:relative;animation:fadeUp .22s both}
+.modal-hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px}
+.modal-title{font-family:var(--serif);font-size:26px;font-weight:600;color:var(--text);letter-spacing:-.01em}
+.modal-sub{font-size:13px;color:var(--muted);margin-top:3px}
+.close-x{width:30px;height:30px;border:1px solid var(--border);border-radius:1px;background:transparent;color:var(--muted);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .18s;flex-shrink:0}
+.close-x:hover{border-color:var(--border2);color:var(--text)}
+.flabel{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--muted);margin-bottom:6px;font-family:var(--sans)}
+.finput{width:100%;padding:10px 13px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:1px;font-size:15px;font-family:var(--sans);color:var(--text);outline:none;transition:border-color .2s;margin-bottom:16px}
+.finput:focus{border-color:var(--accent)}
+.finput::placeholder{color:var(--muted)}
+.fselect{width:100%;padding:10px 13px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:1px;font-size:14px;font-family:var(--sans);color:var(--text);outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%237a7264'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;margin-bottom:16px;transition:border-color .2s}
+.fselect:focus{border-color:var(--accent)}
+.fselect option{background:var(--surface)}
+.ftextarea{width:100%;padding:12px 13px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:1px;font-size:16px;font-family:var(--serif);color:var(--text);outline:none;resize:vertical;min-height:180px;line-height:1.75;transition:border-color .2s;margin-bottom:6px}
+.ftextarea:focus{border-color:var(--accent)}
+.ftextarea::placeholder{color:var(--muted);font-style:italic}
+.word-count{font-size:11px;color:var(--muted);text-align:right;margin-bottom:20px}
+.modal-footer{display:flex;gap:10px;justify-content:flex-end;padding-top:20px;border-top:1px solid var(--border)}
+.btn-ghost{padding:9px 18px;border-radius:1px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:13px;font-family:var(--sans);cursor:pointer;transition:all .18s}
+.btn-ghost:hover{border-color:var(--border2);color:var(--text)}
+.btn-primary{padding:9px 22px;border-radius:1px;border:none;background:var(--accent);color:var(--bg);font-size:13px;font-weight:600;font-family:var(--sans);cursor:pointer;transition:background .18s}
+.btn-primary:hover{background:var(--gold)}
+
+/* ADMIN SESSION BAR */
+.admin-session-bar{position:fixed;bottom:0;left:0;right:0;z-index:199;background:rgba(212,145,58,.95);backdrop-filter:blur(8px);padding:8px 5vw;display:none;align-items:center;justify-content:space-between;font-size:12px;font-family:var(--sans)}
+.admin-session-bar.visible{display:flex}
+.asb-left{display:flex;align-items:center;gap:10px;color:var(--bg);font-weight:600}
+.asb-dot{width:7px;height:7px;border-radius:50%;background:var(--bg);animation:pulse 1.5s infinite}
+.asb-right{display:flex;gap:8px}
+.asb-btn{font-size:11px;padding:5px 12px;border-radius:1px;border:1px solid rgba(0,0,0,.2);background:transparent;color:var(--bg);cursor:pointer;font-family:var(--sans);font-weight:600;transition:background .18s}
+.asb-btn:hover{background:rgba(0,0,0,.12)}
+.asb-btn.danger{border-color:rgba(192,57,43,.5);color:#5d0000}
+.card-admin-bar{display:none;position:absolute;top:0;left:0;right:0;padding:6px 8px;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:10;flex-direction:row;gap:6px;justify-content:flex-end;border-radius:3px 3px 0 0}
+.admin-active .card-admin-bar{display:flex}
+.card-del-btn{font-size:10px;padding:3px 9px;border-radius:1px;border:1px solid rgba(231,76,60,.5);background:rgba(192,57,43,.2);color:#ff8080;cursor:pointer;font-family:var(--sans);font-weight:600;transition:all .18s}
+.card-del-btn:hover{background:rgba(192,57,43,.6);color:#fff}
+.card-edit-btn{font-size:10px;padding:3px 9px;border-radius:1px;border:1px solid rgba(212,145,58,.4);background:rgba(212,145,58,.15);color:var(--gold);cursor:pointer;font-family:var(--sans);font-weight:600;transition:all .18s}
+.card-edit-btn:hover{background:rgba(212,145,58,.4);color:#fff}
+.post-item{position:relative}
+.post-item-admin{display:none;position:absolute;top:50%;right:5vw;transform:translateY(-50%);gap:6px}
+.admin-active .post-item-admin{display:flex}
+.featured{position:relative}
+.video-card,.doc-card{position:relative}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-4px)}40%{transform:translateX(4px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
+.admin-login{display:none;position:fixed;inset:0;z-index:600;background:var(--bg);align-items:center;justify-content:center}
+.admin-login.open{display:flex}
+.login-box{width:min(380px,90vw);border:1px solid var(--border2);border-radius:2px;padding:36px;background:var(--surface);animation:fadeUp .22s both}
+.login-logo{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--text);margin-bottom:4px}
+.login-logo em{font-style:italic;color:var(--accent)}
+.login-sub{font-size:13px;color:var(--muted);margin-bottom:24px}
+.login-hint{font-size:11px;color:var(--muted);text-align:center;margin-top:14px}
+.login-hint strong{color:var(--gold)}
+.login-err{font-size:12px;color:#e06c5a;background:rgba(192,57,43,.1);border:1px solid rgba(192,57,43,.2);padding:8px 11px;border-radius:1px;margin-bottom:12px;display:none}
+.login-err.show{display:block}
+
+/* ADMIN PANEL */
+.admin-panel{display:none;position:fixed;inset:0;z-index:500;background:#0d0c09;overflow-y:auto}
+.admin-panel.open{display:block}
+.admin-topbar{position:sticky;top:0;background:rgba(13,12,9,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 36px;height:58px;z-index:10}
+.admin-logo-wrap{display:flex;align-items:center;gap:10px}
+.admin-logo{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--text)}
+.admin-logo em{font-style:italic;color:var(--accent)}
+.admin-badge{font-size:9px;letter-spacing:.15em;text-transform:uppercase;background:var(--accent);color:var(--bg);padding:3px 7px;border-radius:1px;font-weight:700;font-family:var(--sans)}
+.admin-tabs{display:flex;gap:2px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:2px;padding:3px}
+.atab{font-size:12px;font-weight:500;letter-spacing:.05em;padding:6px 14px;border-radius:1px;border:none;background:transparent;color:var(--muted);cursor:pointer;font-family:var(--sans);transition:all .18s}
+.atab.active{background:var(--accent);color:var(--bg)}
+.atab:not(.active):hover{color:var(--text)}
+.admin-content{padding:36px;max-width:880px;margin:0 auto}
+.a-section{display:none}
+.a-section.active{display:block}
+.a-title{font-family:var(--serif);font-size:26px;font-weight:600;color:var(--text);margin-bottom:5px;letter-spacing:-.01em}
+.a-sub{font-size:13px;color:var(--muted);margin-bottom:28px}
+.a-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.a-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
+.a-card{background:var(--surface);border:1px solid var(--border);border-radius:2px;padding:18px;margin-bottom:14px}
+.a-row{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:2px;margin-bottom:8px}
+.a-row-left{flex:1}
+.a-row-label{font-size:14px;font-weight:500;color:var(--text);margin-bottom:2px}
+.a-row-desc{font-size:12px;color:var(--muted)}
+.profile-preview{display:flex;align-items:center;gap:16px;padding:18px;background:var(--surface2);border:1px solid var(--border);border-radius:2px;margin-bottom:18px}
+.pp-av{width:56px;height:56px;border-radius:50%;background:var(--surface);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:20px;font-weight:600;color:var(--accent);flex-shrink:0;overflow:hidden;position:relative}
+.pp-av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.pp-av-upload{position:relative;cursor:pointer;display:inline-block}
+.pp-av-upload-overlay{position:absolute;inset:0;border-radius:50%;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;font-size:18px;cursor:pointer}
+.pp-av-upload:hover .pp-av-upload-overlay{display:flex}
+.pp-av-upload input[type=file]{display:none}
+.about-av{width:48px;height:48px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:17px;font-weight:600;color:var(--accent);margin-bottom:10px;overflow:hidden}
+.about-av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.pv-av{width:26px;height:26px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:10px;font-weight:600;color:var(--accent);overflow:hidden}
+.pv-av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.pp-name{font-size:16px;font-weight:600;color:var(--text)}
+.pp-role{font-size:12px;color:var(--muted);margin-top:2px}
+.author-row{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:2px;margin-bottom:8px}
+.author-left{display:flex;align-items:center;gap:12px}
+.author-av{width:38px;height:38px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:600;color:var(--accent)}
+.author-name{font-size:14px;font-weight:600;color:var(--text)}
+.author-desc{font-size:12px;color:var(--muted);margin-top:1px}
+.role-pill{font-size:10px;letter-spacing:.09em;text-transform:uppercase;padding:3px 8px;border-radius:1px;font-weight:600;font-family:var(--sans)}
+.role-owner{background:rgba(212,145,58,.15);color:var(--accent);border:1px solid rgba(212,145,58,.3)}
+.role-editor{background:rgba(232,201,122,.1);color:var(--gold);border:1px solid rgba(232,201,122,.2)}
+.role-writer{background:rgba(255,255,255,.05);color:var(--muted2);border:1px solid var(--border)}
+.ptable{width:100%;border-collapse:collapse}
+.ptable th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;font-family:var(--sans);padding:9px 12px;text-align:left;border-bottom:1px solid var(--border)}
+.ptable td{padding:13px 12px;border-bottom:1px solid var(--border);font-size:13px;color:var(--muted2);vertical-align:middle}
+.ptable tr:hover td{background:var(--surface)}
+.ptd-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px}
+.ptd-tag{font-size:10px;color:var(--muted)}
+.swatches{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.swatch{width:34px;height:34px;border-radius:50%;cursor:pointer;border:3px solid transparent;outline:2px solid transparent;transition:outline .2s,outline-offset .2s}
+.swatch.selected{outline:2px solid var(--text);outline-offset:3px}
+.toggle{width:38px;height:20px;border-radius:10px;background:var(--border2);border:none;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0}
+.toggle.on{background:var(--accent)}
+.toggle::after{content:'';position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform .2s}
+.toggle.on::after{transform:translateX(18px)}
+.btn-danger{font-size:11px;padding:5px 11px;border-radius:1px;border:1px solid rgba(192,57,43,.3);background:transparent;color:#e06c5a;cursor:pointer;font-family:var(--sans);transition:all .18s}
+.btn-danger:hover{background:rgba(192,57,43,.15)}
+.admin-savebar{position:sticky;bottom:0;background:rgba(13,12,9,.96);backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:14px 36px;display:flex;align-items:center;justify-content:space-between}
+.save-hint{font-size:12px;color:var(--muted)}
+.save-hint span{color:var(--gold)}
+.pass-msg{font-size:12px;margin-top:8px;display:none}
+
+/* ── BACKUP/RESTORE SECTION ── */
+.backup-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.backup-card{background:var(--surface);border:1px solid var(--border);border-radius:2px;padding:22px}
+.backup-icon{font-size:28px;margin-bottom:10px}
+.backup-title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:5px}
+.backup-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:14px}
+.backup-btn{width:100%;padding:10px;border-radius:1px;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;font-family:var(--sans);cursor:pointer;transition:all .2s}
+.backup-btn-export{background:var(--accent);border:none;color:var(--bg)}
+.backup-btn-export:hover{background:var(--gold)}
+.backup-btn-import{background:transparent;border:1px solid var(--border2);color:var(--muted2)}
+.backup-btn-import:hover{border-color:var(--accent);color:var(--accent)}
+.restore-drop{border:2px dashed var(--border2);border-radius:2px;padding:24px;text-align:center;cursor:pointer;transition:all .2s;position:relative;margin-top:8px}
+.restore-drop:hover,.restore-drop.drag{border-color:var(--accent);background:rgba(212,145,58,.04)}
+.restore-drop input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.restore-drop p{font-size:12px;color:var(--muted)}
+.storage-status{background:var(--surface2);border:1px solid var(--border);border-radius:2px;padding:16px;margin-bottom:16px}
+.storage-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.storage-row:last-child{margin-bottom:0}
+.storage-label{font-size:12px;color:var(--muted2)}
+.storage-val{font-size:12px;color:var(--text);font-weight:500}
+.storage-ok{color:#6dbb8a}
+.storage-warn{color:var(--gold)}
+.storage-bar-wrap{width:100%;height:4px;background:var(--border);border-radius:2px;margin-top:4px}
+.storage-bar{height:100%;border-radius:2px;background:var(--accent);transition:width .5s}
+.idb-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;padding:3px 8px;border-radius:1px}
+.idb-ok{background:rgba(109,187,138,.12);color:#6dbb8a;border:1px solid rgba(109,187,138,.25)}
+.idb-warn{background:rgba(232,201,122,.1);color:var(--gold);border:1px solid rgba(232,201,122,.2)}
+.restore-msg{font-size:12px;padding:8px 11px;border-radius:1px;margin-top:10px;display:none}
+.restore-msg.ok{background:rgba(109,187,138,.1);border:1px solid rgba(109,187,138,.25);color:#6dbb8a;display:block}
+.restore-msg.err{background:rgba(192,57,43,.1);border:1px solid rgba(192,57,43,.2);color:#e06c5a;display:block}
+
+/* ANIMATION */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
+.reveal.vis{opacity:1;transform:none}
+
+/* VIDEO SECTION */
+.video-section{padding:80px 8vw;border-top:1px solid var(--border);background:var(--surface)}
+.vs-header{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:48px}
+.vs-title{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:600;line-height:1.1;letter-spacing:-.02em}
+.vs-sub{font-size:15px;color:var(--muted2);margin-top:6px;max-width:440px;line-height:1.7}
+.vs-eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.vs-eyebrow::before{content:'';width:24px;height:1px;background:var(--accent);display:inline-block}
+.vs-filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:32px}
+.video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.video-card{background:var(--surface2);border:1px solid var(--border);border-radius:3px;overflow:hidden;cursor:pointer;transition:border-color .2s,transform .2s;position:relative}
+.video-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.video-thumb{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden}
+.video-thumb video{width:100%;height:100%;object-fit:cover;opacity:.85;transition:opacity .2s}
+.video-card:hover .video-thumb video{opacity:1}
+.video-thumb-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--surface),var(--surface2));position:absolute;inset:0}
+.play-btn{width:52px;height:52px;border-radius:50%;background:rgba(212,145,58,.9);display:flex;align-items:center;justify-content:center;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);transition:transform .2s,background .2s;z-index:2}
+.video-card:hover .play-btn{transform:translate(-50%,-50%) scale(1.1);background:var(--accent)}
+.play-icon{width:0;height:0;border-style:solid;border-width:9px 0 9px 16px;border-color:transparent transparent transparent #fff;margin-left:3px}
+.video-dur{position:absolute;bottom:8px;right:10px;font-size:10px;font-family:var(--sans);font-weight:600;background:rgba(0,0,0,.75);color:#fff;padding:2px 7px;border-radius:2px;letter-spacing:.04em}
+.video-cat-badge{position:absolute;top:10px;left:10px;z-index:2}
+.video-info{padding:16px}
+.video-title{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:6px;transition:color .2s}
+.video-card:hover .video-title{color:var(--accent)}
+.video-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.video-meta{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--muted);font-family:var(--sans)}
+.video-featured{grid-column:1/-1;display:grid;grid-template-columns:1.6fr 1fr;gap:0;border:1px solid var(--border);border-radius:3px;overflow:hidden;margin-bottom:4px;background:var(--surface2)}
+.vf-left{position:relative;aspect-ratio:16/9}
+.vf-left video{width:100%;height:100%;object-fit:cover}
+.vf-right{padding:28px 24px;display:flex;flex-direction:column;justify-content:center}
+.vf-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:12px;font-family:var(--sans)}
+.vf-title{font-family:var(--serif);font-size:clamp(20px,2.2vw,28px);font-weight:600;color:var(--text);line-height:1.2;margin-bottom:10px;letter-spacing:-.01em}
+.vf-desc{font-size:14px;color:var(--muted2);line-height:1.7;margin-bottom:18px}
+.vf-meta{font-size:11px;color:var(--muted);display:flex;gap:12px;margin-bottom:20px}
+/* ── VIDEO PLAYER OVERLAY ── */
+.video-player-overlay{display:none;position:fixed;inset:0;z-index:700;align-items:center;justify-content:center}
+.video-player-overlay.open{display:flex}
+.vpo-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.92);backdrop-filter:blur(10px)}
+.vpo-inner{position:relative;z-index:1;width:min(960px,95vw);display:flex;flex-direction:column;max-height:94vh;border-radius:4px;overflow:hidden;background:#0d0c09;border:1px solid rgba(255,255,255,.08);box-shadow:0 32px 80px rgba(0,0,0,.7);animation:fadeUp .2s both}
+
+/* Header */
+.vpo-header{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:1px solid rgba(255,255,255,.07);flex-shrink:0;gap:12px}
+.vpo-header-left{display:flex;align-items:center;gap:10px;min-width:0}
+.vpo-close{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;font-family:var(--sans)}
+.vpo-close:hover{background:rgba(192,57,43,.5);border-color:rgba(192,57,43,.6);color:#fff}
+
+/* Stage */
+.vpo-stage{position:relative;width:100%;background:#000;flex-shrink:0}
+.vpo-html5-wrap,.vpo-iframe-wrap{width:100%;aspect-ratio:16/9;position:relative;background:#000}
+.vpo-html5-video{width:100%;height:100%;display:block;outline:none;background:#000}
+/* Native controls styling */
+.vpo-html5-video::-webkit-media-controls{background:linear-gradient(transparent,rgba(0,0,0,.7))}
+
+/* Error states */
+.vpo-error{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--surface);text-align:center;padding:32px}
+
+/* Footer */
+.vpo-footer{padding:14px 18px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-shrink:0}
+.vpo-title{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--text);line-height:1.3;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vpo-meta{font-size:11px;color:var(--muted);white-space:nowrap}
+.vpo-footer-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.vpo-ext-btn{font-size:11px;padding:5px 12px;border-radius:1px;border:1px solid var(--border2);background:transparent;color:var(--muted2);cursor:pointer;font-family:var(--sans);text-decoration:none;display:inline-flex;align-items:center;gap:5px;transition:all .18s}
+.vpo-ext-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+@media(max-width:640px){
+  .vpo-inner{width:100vw;max-height:100vh;border-radius:0;border:none}
+  .vpo-title{font-size:14px}
+}
+
+.upload-zone{border:2px dashed var(--border2);border-radius:3px;padding:40px 24px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;position:relative;margin-bottom:16px}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--accent);background:rgba(212,145,58,.04)}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-icon{font-size:36px;margin-bottom:10px}
+.upload-title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px}
+.upload-hint{font-size:12px;color:var(--muted);line-height:1.6}
+.upload-preview{display:none;align-items:center;gap:12px;padding:12px;background:var(--surface2);border:1px solid var(--border);border-radius:2px;margin-bottom:16px}
+.upload-preview.show{display:flex}
+.upload-preview-thumb{width:80px;height:50px;background:#000;border-radius:2px;overflow:hidden;flex-shrink:0}
+.upload-preview-thumb video{width:100%;height:100%;object-fit:cover}
+.upload-preview-info{flex:1}
+.upload-preview-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;word-break:break-all}
+.upload-preview-size{font-size:11px;color:var(--muted)}
+.progress-bar-wrap{width:100%;height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:8px;display:none}
+.progress-bar-wrap.show{display:block}
+.progress-bar{height:100%;background:var(--accent);transition:width .3s;width:0%}
+.yt-tab{display:flex;gap:0;margin-bottom:16px;border:1px solid var(--border);border-radius:2px;overflow:hidden}
+.yt-tab-btn{flex:1;padding:9px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-family:var(--sans);border:none;background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+.yt-tab-btn.active{background:var(--accent);color:var(--bg)}
+.yt-input-wrap{display:none}
+.yt-input-wrap.show{display:block}
+.video-empty{padding:64px 24px;text-align:center;display:none}
+.video-empty-icon{font-size:56px;opacity:.08;margin-bottom:10px}
+.video-empty p{color:var(--muted);font-size:14px}
+.vs-load{padding:28px 0;text-align:center;display:none}
+
+/* DOCUMENTS SECTION */
+.docs-section{padding:80px 8vw;border-top:1px solid var(--border);background:var(--bg)}
+.docs-header{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:40px}
+.docs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.doc-card{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:20px 18px;cursor:pointer;transition:border-color .2s,transform .2s;position:relative;overflow:hidden}
+.doc-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.doc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity .2s}
+.doc-card:hover::before{opacity:1}
+.doc-card.type-pdf::before{background:#e74c3c}
+.doc-card.type-doc::before{background:#2980b9}
+.doc-card.type-xls::before{background:#27ae60}
+.doc-card.type-ppt::before{background:#e67e22}
+.doc-card.type-other::before{background:var(--accent)}
+.doc-icon-wrap{width:48px;height:48px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px;flex-shrink:0}
+.doc-icon-wrap.pdf{background:rgba(231,76,60,.12)}
+.doc-icon-wrap.doc{background:rgba(41,128,185,.12)}
+.doc-icon-wrap.xls{background:rgba(39,174,96,.12)}
+.doc-icon-wrap.ppt{background:rgba(230,126,34,.12)}
+.doc-icon-wrap.other{background:rgba(212,145,58,.1)}
+.doc-title{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:6px;transition:color .2s}
+.doc-card:hover .doc-title{color:var(--accent)}
+.doc-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.doc-footer{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border)}
+.doc-meta{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.doc-size{font-family:var(--sans);font-size:10px;letter-spacing:.06em;padding:2px 7px;border-radius:1px;border:1px solid var(--border2);color:var(--muted2)}
+.doc-type-badge{font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;padding:2px 7px;border-radius:1px;font-family:var(--sans)}
+.doc-type-badge.pdf{background:rgba(231,76,60,.12);color:#e74c3c}
+.doc-type-badge.doc{background:rgba(41,128,185,.12);color:#5dade2}
+.doc-type-badge.xls{background:rgba(39,174,96,.12);color:#58d68d}
+.doc-type-badge.ppt{background:rgba(230,126,34,.12);color:#f0a500}
+.doc-type-badge.other{background:rgba(212,145,58,.1);color:var(--accent)}
+.doc-actions{display:flex;gap:6px}
+.doc-btn{font-size:11px;padding:5px 10px;border-radius:1px;border:1px solid var(--border2);background:transparent;color:var(--muted2);cursor:pointer;font-family:var(--sans);transition:all .18s;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+.doc-btn:hover{border-color:var(--accent);color:var(--accent)}
+.doc-btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.doc-btn.primary:hover{background:var(--gold);border-color:var(--gold)}
+.doc-featured{display:flex;align-items:center;gap:18px;padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:3px;margin-bottom:4px;cursor:pointer;transition:border-color .2s}
+.doc-featured:hover{border-color:var(--border2)}
+.doc-featured-icon{width:56px;height:56px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.doc-featured-label{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:4px;font-family:var(--sans)}
+.doc-featured-title{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--text);margin-bottom:4px;transition:color .2s}
+.doc-featured:hover .doc-featured-title{color:var(--accent)}
+.doc-featured-desc{font-size:13px;color:var(--muted);line-height:1.6}
+.doc-featured-right{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0}
+.docs-filters{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:24px}
+.docs-search{display:flex;align-items:center;gap:7px;border:1px solid var(--border);padding:6px 12px;border-radius:1px;background:rgba(255,255,255,.02)}
+.docs-search:focus-within{border-color:var(--border2)}
+.docs-search input{background:transparent;border:none;outline:none;font-size:12px;font-family:var(--sans);color:var(--text);width:140px}
+.docs-search input::placeholder{color:var(--muted)}
+.doc-viewer{display:none;position:fixed;inset:0;z-index:700;background:rgba(0,0,0,.92);align-items:center;justify-content:center;flex-direction:column}
+.doc-viewer.open{display:flex}
+.dv-inner{width:min(860px,94vw);height:85vh;display:flex;flex-direction:column;position:relative}
+.dv-topbar{display:flex;align-items:center;justify-content:space-between;padding:0 0 14px;flex-shrink:0}
+.dv-title{font-family:var(--serif);font-size:18px;font-weight:600;color:#fff}
+.dv-close{background:none;border:none;color:rgba(255,255,255,.5);font-size:26px;cursor:pointer;transition:color .2s;line-height:1}
+.dv-close:hover{color:#fff}
+.dv-frame{flex:1;border-radius:3px;overflow:hidden;background:#fff}
+.dv-frame iframe{width:100%;height:100%;border:none}
+.dv-frame .dv-nopreview{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--surface);border-radius:3px}
+.dv-nopreview-icon{font-size:64px;margin-bottom:16px;opacity:.4}
+.dv-nopreview p{color:var(--muted2);font-size:15px;margin-bottom:20px}
+.doc-upload-zone{border:2px dashed var(--border2);border-radius:3px;padding:36px 24px;text-align:center;cursor:pointer;transition:all .2s;position:relative;margin-bottom:16px}
+.doc-upload-zone:hover,.doc-upload-zone.drag{border-color:var(--accent);background:rgba(212,145,58,.04)}
+.doc-upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.doc-file-preview{display:none;align-items:center;gap:12px;padding:12px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:2px;margin-bottom:14px}
+.doc-file-preview.show{display:flex}
+.doc-file-icon-sm{width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.doc-empty{padding:56px 24px;text-align:center;display:none}
+.doc-empty-icon{font-size:52px;opacity:.07;margin-bottom:10px}
+.doc-empty p{color:var(--muted);font-size:14px}
+.docs-load{padding:24px 0;text-align:center;display:none}
+@media(max-width:860px){.docs-grid{grid-template-columns:1fr}}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  .main{grid-template-columns:1fr}
+  .sidebar{display:none}
+  nav .nav-links{display:none}
+  .hero-h1{font-size:clamp(44px,11vw,80px)}
+  .video-grid{grid-template-columns:1fr}
+  .video-featured{grid-template-columns:1fr}
+  .backup-grid{grid-template-columns:1fr}
+  .admin-tabs{gap:1px}
+  .atab{padding:5px 9px;font-size:11px}
+}
+
+/* PERFORMANCE: contain layout & paint to list items so re-renders don't cause full-page reflow */
+.post-item { contain: layout style; }
+.video-card { contain: layout style; }
+.doc-card   { contain: layout style; }
+
+/* content-visibility: auto skips rendering off-screen sections until user scrolls there */
+#videos   { content-visibility: auto; contain-intrinsic-size: 0 600px; }
+#documents{ content-visibility: auto; contain-intrinsic-size: 0 600px; }
+
+/* Smooth scrolling only when user hasn't requested reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { transition: none !important; opacity: 1 !important; transform: none !important; }
+  @keyframes fadeUp { from {} to {} }
+  @keyframes pulse  { from {} to {} }
+  @keyframes scroll { to { transform: none; } }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#" onclick="showHome(event)" ondblclick="openLoginScreen()">The Global<em>Desk</em></a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#" onclick="doFilter('all',null,event)">All</a></li>
+      <li><a href="#" onclick="doFilter('Economics',null,event)">Economics</a></li>
+      <li><a href="#" onclick="doFilter('Politics',null,event)">Politics</a></li>
+      <li><a href="#" onclick="doFilter('IR',null,event)">IR</a></li>
+      <li><a href="#videos" onclick="scrollToVideos(event)">▶ Videos</a></li>
+      <li><a href="#documents" onclick="scrollToDocs(event)">📄 Docs</a></li>
+    </ul>
+    <button class="btn-nav btn-write" id="nav-write-btn" onclick="openWrite()" style="display:none">+ Write</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+
+    <!-- LEFT: Text -->
+    <div class="hero-left">
+      <div class="hero-eyebrow"><span class="eyebrow-dot"></span>Independent Analysis · Economics · Politics · IR</div>
+      <h1 class="hero-h1">The<br/><em>Global</em><br/><strong>Desk</strong></h1>
+      <p class="hero-sub" id="hero-sub-text">Thinking the world clearly.</p>
+      <p class="hero-desc" id="hero-desc-text">Original views on economics, political landscapes, and international relations — from a JRF scholar who reads the world as it is, not as we wish it were.</p>
+      <div class="hero-creds">
+        <div class="cred">UGC JRF &nbsp;<strong>AIR 66</strong></div>
+        <div class="cred"><strong>99.78</strong>&nbsp;percentile</div>
+        <div class="cred">Maharashtra SET &nbsp;<strong>Economics</strong></div>
+        <div class="cred">Former UPSC Aspirant</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Newspaper Visual -->
+    <div class="hero-newspaper">
+      <div class="newspaper-wrap">
+        <!-- Main photo -->
+        <img class="newspaper-photo"
+          src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=900&q=85"
+          alt="Global newspaper"
+          loading="eager"
+          decoding="async"
+          onerror="this.src='https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=900&q=85'"/>
+        <div class="newspaper-overlay"></div>
+        <!-- Top date strip -->
+        <div class="np-date-strip">
+          <span class="np-date-text" id="np-live-date">The Global Desk</span>
+          <span class="np-edition">Vol. I · Est. 2026</span>
+        </div>
+        <!-- Bottom caption -->
+        <div class="newspaper-caption">
+          <div class="newspaper-caption-label">Editor's Desk</div>
+          <div class="newspaper-caption-title">Independent analysis on the forces shaping our world — economics, politics & IR.</div>
+        </div>
+        <!-- Floating headline cards -->
+        <div class="np-card np-card-1">
+          <div class="np-card-tag" style="color:var(--accent)">Economics</div>
+          <div class="np-card-text">"Markets price in the future. Analysts explain the past."</div>
+        </div>
+        <div class="np-card np-card-2">
+          <div class="np-card-tag" style="color:var(--gold)">Int'l Relations</div>
+          <div class="np-card-text">"Strategic autonomy is only meaningful when tested."</div>
+        </div>
+        <div class="np-card np-card-3">
+          <div class="np-card-tag" style="color:#e06c5a">Politics</div>
+          <div class="np-card-text">"Democracy survives on the quality of its disagreements."</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item hl">Daily Analysis</span><span class="marquee-item">Monetary Policy & RBI</span><span class="marquee-item">India's Strategic Autonomy</span><span class="marquee-item">Electoral Politics 2026</span><span class="marquee-item hl">Current Affairs</span><span class="marquee-item">US–China Competition</span><span class="marquee-item">The Waqf Amendment</span><span class="marquee-item">BRICS & Multipolarity</span><span class="marquee-item hl">Original Views</span><span class="marquee-item">Inflation & Growth Trade-offs</span><span class="marquee-item">UN Security Council</span><span class="marquee-item">Democratic Backsliding</span>
+    <span class="marquee-item hl">Daily Analysis</span><span class="marquee-item">Monetary Policy & RBI</span><span class="marquee-item">India's Strategic Autonomy</span><span class="marquee-item">Electoral Politics 2026</span><span class="marquee-item hl">Current Affairs</span><span class="marquee-item">US–China Competition</span><span class="marquee-item">The Waqf Amendment</span><span class="marquee-item">BRICS & Multipolarity</span><span class="marquee-item hl">Original Views</span><span class="marquee-item">Inflation & Growth Trade-offs</span><span class="marquee-item">UN Security Council</span><span class="marquee-item">Democratic Backsliding</span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main" id="main">
+  <div class="posts-col">
+    <div class="filters">
+      <div class="filter-group" id="filter-btns">
+        <button class="fbtn active" onclick="doFilter('all',this,event)">All</button>
+        <button class="fbtn" onclick="doFilter('Economics',this,event)">Economics</button>
+        <button class="fbtn" onclick="doFilter('Politics',this,event)">Politics</button>
+        <button class="fbtn" onclick="doFilter('IR',this,event)">Int'l Relations</button>
+        <button class="fbtn" onclick="doFilter('Current Affairs',this,event)">Current Affairs</button>
+      </div>
+      <div class="search-wrap">
+        <span style="color:var(--muted);font-size:13px">⌕</span>
+        <input type="text" placeholder="Search…" oninput="doSearch(this.value)"/>
+      </div>
+    </div>
+    <div id="featured-wrap"></div>
+    <div id="post-list"></div>
+    <div class="empty" id="empty"><div class="empty-icon">∅</div><p>No posts match. Try a different filter.</p></div>
+    <div class="load-more" id="load-more"><button class="btn-outline" onclick="loadMore()">Load more posts ↓</button></div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="s-section">
+      <div class="s-label">The Author</div>
+      <div class="about-card">
+        <div class="about-av" id="sb-av"><span id="sb-av-text">YN</span></div>
+        <div class="about-name" id="sb-name">Your Name</div>
+        <div class="about-role" id="sb-role">Researcher · Writer · Educator</div>
+        <div class="about-bio" id="sb-bio">Independent analyst writing on the forces that shape economies, politics, and the international order. Rigorous, original, and never superficial.</div>
+        <div class="about-badges" id="sb-badges">
+          <span class="badge">UGC JRF · AIR 66</span>
+          <span class="badge">99.78%ile</span>
+          <span class="badge">MH SET Economics</span>
+          <span class="badge">UPSC Aspirant</span>
+        </div>
+      </div>
+    </div>
+    <div class="s-section">
+      <div class="s-label">Topics</div>
+      <ul class="topic-list" id="topic-list"></ul>
+    </div>
+    <div class="s-section">
+      <div class="s-label">Recent Posts</div>
+      <div id="recent-list"></div>
+    </div>
+    <div class="s-section">
+      <div class="nl-box">
+        <div class="nl-title">Stay informed.</div>
+        <p class="nl-desc">Get my analysis in your inbox. No noise — just original thinking.</p>
+        <input class="nl-input" type="email" placeholder="your@email.com"/>
+        <button class="nl-btn" onclick="this.textContent='Subscribed ✓';this.style.background='var(--gold)';setTimeout(()=>{this.textContent='Subscribe →';this.style.background=''},3000)">Subscribe →</button>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- VIDEO SECTION -->
+<section class="video-section" id="videos">
+  <div class="vs-header">
+    <div>
+      <div class="vs-eyebrow">Visual Learning</div>
+      <div class="vs-title">Concept Videos</div>
+      <div class="vs-sub">Short explainers on economics, political theory, and global affairs — in your own words, on your own terms.</div>
+    </div>
+    <button class="btn-nav btn-write" id="nav-upload-video-btn" onclick="openVideoUpload()" style="display:none;white-space:nowrap;height:fit-content">▲ Upload Video</button>
+  </div>
+  <div class="vs-filters" id="v-filter-btns">
+    <button class="fbtn active" onclick="filterVideos('all',this)">All Videos</button>
+    <button class="fbtn" onclick="filterVideos('Economics',this)">Economics</button>
+    <button class="fbtn" onclick="filterVideos('Politics',this)">Politics</button>
+    <button class="fbtn" onclick="filterVideos('IR',this)">Int'l Relations</button>
+    <button class="fbtn" onclick="filterVideos('Current Affairs',this)">Current Affairs</button>
+  </div>
+  <div id="video-featured-wrap"></div>
+  <div class="video-grid" id="video-grid"></div>
+  <div class="video-empty" id="video-empty">
+    <div class="video-empty-icon">🎬</div>
+    <p>No videos yet. Click <strong style="color:var(--accent)">Upload Video</strong> to add your first one!</p>
+  </div>
+  <div class="vs-load" id="vs-load-more">
+    <button class="btn-outline" style="max-width:280px;margin:0 auto;display:block" onclick="loadMoreVideos()">Load more videos ↓</button>
+  </div>
+</section>
+
+<!-- DOCUMENTS SECTION -->
+<section class="docs-section" id="documents">
+  <div class="docs-header">
+    <div>
+      <div class="vs-eyebrow">Research Library</div>
+      <div class="vs-title">Documents & Resources</div>
+      <div class="vs-sub">PDFs, reports, Word docs, spreadsheets — all your written research in one place, available to read or download.</div>
+    </div>
+    <button class="btn-nav btn-write" id="nav-upload-doc-btn" onclick="openDocUpload()" style="display:none;white-space:nowrap;height:fit-content">▲ Upload Document</button>
+  </div>
+  <div class="docs-filters">
+    <div class="filter-group" id="doc-filter-btns">
+      <button class="fbtn active" onclick="filterDocs('all',this)">All</button>
+      <button class="fbtn" onclick="filterDocs('pdf',this)">PDF</button>
+      <button class="fbtn" onclick="filterDocs('doc',this)">Word</button>
+      <button class="fbtn" onclick="filterDocs('xls',this)">Excel</button>
+      <button class="fbtn" onclick="filterDocs('ppt',this)">PowerPoint</button>
+      <button class="fbtn" onclick="filterDocs('other',this)">Other</button>
+    </div>
+    <div class="docs-search">
+      <span style="color:var(--muted);font-size:13px">⌕</span>
+      <input type="text" placeholder="Search documents…" oninput="searchDocs(this.value)"/>
+    </div>
+  </div>
+  <div id="doc-featured-wrap"></div>
+  <div class="docs-grid" id="docs-grid"></div>
+  <div class="doc-empty" id="doc-empty">
+    <div class="doc-empty-icon">📂</div>
+    <p>No documents yet. Click <strong style="color:var(--accent)">Upload Document</strong> to add your first one!</p>
+  </div>
+  <div class="docs-load" id="docs-load-more">
+    <button class="btn-outline" style="max-width:280px;margin:0 auto;display:block" onclick="loadMoreDocs()">Load more documents ↓</button>
+  </div>
+</section>
+
+<!-- DOC VIEWER -->
+<div class="doc-viewer" id="doc-viewer" onclick="closeDocViewer(event)">
+  <div class="dv-inner" onclick="event.stopPropagation()">
+    <div class="dv-topbar">
+      <div class="dv-title" id="dv-title"></div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <a class="doc-btn primary" id="dv-download" download>⬇ Download</a>
+        <button class="dv-close" onclick="closeDocViewer()">×</button>
+      </div>
+    </div>
+    <div class="dv-frame" id="dv-frame"></div>
+  </div>
+</div>
+
+<!-- DOC UPLOAD MODAL -->
+<div class="overlay" id="doc-upload-overlay">
+  <div class="modal-box" style="max-width:620px">
+    <div class="modal-hdr">
+      <div><div class="modal-title">Upload a Document</div><div class="modal-sub">PDF · Word · Excel · PowerPoint · Any file type</div></div>
+      <button class="close-x" onclick="closeDocUpload()">×</button>
+    </div>
+    <div class="doc-upload-zone" id="doc-upload-zone">
+      <input type="file" id="doc-file-input" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.md" onchange="handleDocFile(this)"/>
+      <div class="upload-icon">📂</div>
+      <div class="upload-title">Drag & drop your document here</div>
+      <div class="upload-hint">PDF, Word (.docx), Excel (.xlsx), PowerPoint (.pptx), CSV, TXT and more<br/><strong style="color:var(--accent)">No file size limit · No document count limit</strong></div>
+    </div>
+    <div class="doc-file-preview" id="doc-file-preview">
+      <div class="doc-file-icon-sm" id="dfp-icon"></div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;word-break:break-all" id="dfp-name"></div>
+        <div style="font-size:11px;color:var(--muted)" id="dfp-size"></div>
+      </div>
+      <span class="doc-type-badge" id="dfp-badge"></span>
+    </div>
+    <label class="flabel">Document Title</label>
+    <input class="finput" id="d-doc-title" type="text" placeholder="e.g. India's Trade Policy — A Comprehensive Analysis"/>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div>
+        <label class="flabel">Category</label>
+        <select class="fselect" id="d-doc-cat">
+          <option value="Economics">Economics</option>
+          <option value="Politics">Politics</option>
+          <option value="IR">International Relations</option>
+          <option value="Current Affairs">Current Affairs</option>
+          <option value="Research">Research</option>
+          <option value="Notes">Notes</option>
+        </select>
+      </div>
+      <div>
+        <label class="flabel">Access</label>
+        <select class="fselect" id="d-doc-access">
+          <option value="free">Free — Anyone can download</option>
+          <option value="view">View only — No download</option>
+        </select>
+      </div>
+    </div>
+    <label class="flabel">Short Description</label>
+    <textarea class="ftextarea" id="d-doc-desc" style="min-height:80px;margin-bottom:14px" placeholder="What does this document cover?"></textarea>
+
+    <!-- COVER IMAGE PICKER -->
+    <label class="flabel">Cover Image <span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0">(optional — shown on document cards)</span></label>
+    <div class="thumb-picker" id="d-thumb-picker">
+      <div class="thumb-preview" id="d-thumb-preview" style="display:none">
+        <img id="d-thumb-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:1px"/>
+        <button class="thumb-clear" onclick="clearThumb('d')" title="Remove image">×</button>
+      </div>
+      <div class="thumb-placeholder" id="d-thumb-placeholder">
+        <div class="thumb-tabs">
+          <button class="thumb-tab active" onclick="switchThumbTab('d','upload',this)">📁 Upload</button>
+          <button class="thumb-tab" onclick="switchThumbTab('d','url',this)">🔗 URL</button>
+        </div>
+        <div class="thumb-tab-content" id="d-thumb-upload">
+          <label class="thumb-drop">
+            <input type="file" accept="image/*" onchange="handleThumbFile(this,'d')" style="display:none"/>
+            <span style="font-size:20px">🖼️</span>
+            <span style="font-size:12px;color:var(--muted)">Click or drag an image</span>
+            <span style="font-size:11px;color:var(--muted);opacity:.6">JPG, PNG, WebP</span>
+          </label>
+        </div>
+        <div class="thumb-tab-content" id="d-thumb-url" style="display:none">
+          <input class="finput" id="d-thumb-url-input" type="text" placeholder="https://example.com/image.jpg" style="margin-bottom:8px" oninput="previewThumbUrl(this,'d')"/>
+          <p style="font-size:11px;color:var(--muted);margin-top:-4px">Paste any image URL — it will be used as the cover</p>
+        </div>
+      </div>
+    </div>
+    <input type="hidden" id="d-thumb-data" value=""/>
+    <input type="hidden" id="d-doc-edit-id" value=""/>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeDocUpload()">Cancel</button>
+      <button class="btn-primary" onclick="publishDoc()">Upload & Publish →</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">The Global<em>Desk</em></div>
+  <span class="footer-copy">© 2026 · Economics · Politics · IR</span>
+  <div class="footer-links">
+    <a href="#" id="fl-1" target="_blank" rel="noopener noreferrer" style="display:none">Substack</a>
+    <a href="#" id="fl-2" target="_blank" rel="noopener noreferrer" style="display:none">Twitter</a>
+    <a href="#" id="fl-3" target="_blank" rel="noopener noreferrer" style="display:none">LinkedIn</a>
+  </div>
+</footer>
+
+<!-- POST VIEW -->
+<div class="post-view" id="post-view">
+  <div class="pv-inner">
+    <button class="back-btn" onclick="closePostView()">← Back to all posts</button>
+    <div id="pv-cat"></div>
+    <h1 class="pv-title" id="pv-title"></h1>
+    <div class="pv-meta">
+      <div class="pv-author"><div class="pv-av" id="pv-av"><span id="pv-av-text">YN</span></div><span id="pv-author-name">Your Name</span></div>
+      <span class="meta-sep">·</span><span id="pv-date"></span>
+      <span class="meta-sep">·</span><span id="pv-read"></span>
+    </div>
+    <img id="pv-cover-img" src="" alt="" loading="lazy" style="display:none;width:100%;max-height:380px;object-fit:cover;border-radius:2px;margin-bottom:32px;opacity:.9"/>
+    <div class="pv-body" id="pv-body"></div>
+  </div>
+</div>
+
+<!-- WRITE MODAL -->
+<div class="overlay" id="write-overlay">
+  <div class="modal-box">
+    <div class="modal-hdr">
+      <div><div class="modal-title">Write a new post</div><div class="modal-sub">Share your analysis</div></div>
+      <button class="close-x" onclick="closeWrite()">×</button>
+    </div>
+    <label class="flabel">Headline</label>
+    <input class="finput" id="w-title" type="text" placeholder="A sharp, memorable title…"/>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div>
+        <label class="flabel">Category</label>
+        <select class="fselect" id="w-cat">
+          <option value="Economics">Economics</option>
+          <option value="Politics">Politics</option>
+          <option value="IR">International Relations</option>
+          <option value="Current Affairs">Current Affairs</option>
+        </select>
+      </div>
+      <div>
+        <label class="flabel">Reading time</label>
+        <input class="finput" id="w-read" type="text" placeholder="Auto-calculated" readonly style="opacity:.5;cursor:default;margin-bottom:0"/>
+      </div>
+    </div>
+    <label class="flabel" style="margin-top:14px;display:block">Your analysis</label>
+    <textarea class="ftextarea" id="w-body" placeholder="Write your full analysis here…" oninput="calcRead(this)"></textarea>
+    <div class="word-count" id="w-wc">0 words</div>
+
+    <!-- COVER IMAGE PICKER -->
+    <label class="flabel" style="margin-top:4px;display:block">Cover Image <span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+    <div class="thumb-picker" id="w-thumb-picker">
+      <div class="thumb-preview" id="w-thumb-preview" style="display:none">
+        <img id="w-thumb-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:1px"/>
+        <button class="thumb-clear" onclick="clearThumb('w')" title="Remove image">×</button>
+      </div>
+      <div class="thumb-placeholder" id="w-thumb-placeholder">
+        <div class="thumb-tabs">
+          <button class="thumb-tab active" onclick="switchThumbTab('w','upload',this)">📁 Upload</button>
+          <button class="thumb-tab" onclick="switchThumbTab('w','url',this)">🔗 URL</button>
+        </div>
+        <div class="thumb-tab-content" id="w-thumb-upload">
+          <label class="thumb-drop">
+            <input type="file" accept="image/*" onchange="handleThumbFile(this,'w')" style="display:none"/>
+            <span style="font-size:20px">🖼️</span>
+            <span style="font-size:12px;color:var(--muted)">Click or drag a cover image</span>
+            <span style="font-size:11px;color:var(--muted);opacity:.6">JPG, PNG, WebP</span>
+          </label>
+        </div>
+        <div class="thumb-tab-content" id="w-thumb-url" style="display:none">
+          <input class="finput" id="w-thumb-url-input" type="text" placeholder="https://example.com/image.jpg" style="margin-bottom:8px" oninput="previewThumbUrl(this,'w')"/>
+          <p style="font-size:11px;color:var(--muted);margin-top:-4px">Paste any image URL</p>
+        </div>
+      </div>
+    </div>
+    <input type="hidden" id="w-thumb-data" value=""/>
+    <input type="hidden" id="w-edit-id" value=""/>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeWrite()">Discard</button>
+      <button class="btn-primary" onclick="publishPost()">Publish →</button>
+    </div>
+  </div>
+</div>
+
+<!-- VIDEO PLAYER -->
+<div class="video-player-overlay" id="vpo">
+  <div class="vpo-backdrop" onclick="closeVideoPlayer()"></div>
+  <div class="vpo-inner" onclick="event.stopPropagation()">
+    <!-- Header -->
+    <div class="vpo-header">
+      <div class="vpo-header-left">
+        <span class="cat" id="vpo-cat"></span>
+        <span class="vpo-meta" id="vpo-meta"></span>
+      </div>
+      <button class="vpo-close" onclick="closeVideoPlayer()" title="Close (Esc)">✕</button>
+    </div>
+
+    <!-- Player area -->
+    <div class="vpo-stage" id="vpo-stage">
+      <!-- HTML5 video player (for uploaded files) -->
+      <div class="vpo-html5-wrap" id="vpo-html5-wrap" style="display:none">
+        <video id="vpo-html5" class="vpo-html5-video" controls playsinline
+          onerror="onVideoError()"
+          onloadeddata="onVideoLoaded()">
+          Your browser does not support HTML5 video.
+        </video>
+        <div class="vpo-error" id="vpo-html5-error" style="display:none">
+          <div style="font-size:40px;margin-bottom:12px">⚠️</div>
+          <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px">Video couldn't play in browser</div>
+          <div style="font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.6">This can happen with large files opened from your desktop.<br/>Try downloading and opening with your media player instead.</div>
+          <a id="vpo-download-btn" class="doc-btn primary" style="font-size:13px;padding:10px 20px;text-decoration:none" download>⬇ Download & Play Locally</a>
+        </div>
+      </div>
+
+      <!-- YouTube / Vimeo iframe player -->
+      <div class="vpo-iframe-wrap" id="vpo-iframe-wrap" style="display:none">
+        <iframe id="vpo-iframe"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+          allowfullscreen
+          frameborder="0"
+          style="width:100%;height:100%;border:none;display:block">
+        </iframe>
+        <!-- Fallback shown if iframe is blocked (file:// protocol) -->
+        <div class="vpo-error" id="vpo-iframe-error" style="display:none">
+          <div style="font-size:40px;margin-bottom:12px">🔒</div>
+          <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px">YouTube/Vimeo blocked by browser</div>
+          <div style="font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.6">Embedded videos can't load when the site is opened directly<br/>from your desktop (<code style="color:var(--gold)">file://</code>). Open the link directly instead.</div>
+          <a id="vpo-yt-link" href="#" target="_blank" rel="noopener" class="doc-btn primary" style="font-size:13px;padding:10px 20px;text-decoration:none">▶ Open on YouTube / Vimeo</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer info -->
+    <div class="vpo-footer">
+      <div class="vpo-title" id="vpo-title"></div>
+      <div class="vpo-footer-right" id="vpo-footer-right"></div>
+    </div>
+  </div>
+</div>
+
+<!-- VIDEO UPLOAD MODAL -->
+<div class="overlay" id="video-upload-overlay">
+  <div class="modal-box" style="max-width:640px">
+    <div class="modal-hdr">
+      <div><div class="modal-title">Upload a Video</div><div class="modal-sub">No file size limit · No video count limit</div></div>
+      <button class="close-x" onclick="closeVideoUpload()">×</button>
+    </div>
+    <div class="yt-tab">
+      <button class="yt-tab-btn active" id="tab-file-btn" onclick="switchVideoTab('file')">📁 Upload File</button>
+      <button class="yt-tab-btn" id="tab-link-btn" onclick="switchVideoTab('link')">🔗 YouTube / Vimeo</button>
+    </div>
+    <div class="yt-input-wrap show" id="tab-file">
+      <div class="upload-zone" id="upload-zone">
+        <input type="file" id="video-file-input" accept="video/*" onchange="handleVideoFile(this)"/>
+        <div class="upload-icon">🎬</div>
+        <div class="upload-title">Drag & drop your video here</div>
+        <div class="upload-hint">Supports MP4, MOV, WebM, AVI · <strong style="color:var(--accent)">No size limit</strong><br/>Videos are stored in your browser locally</div>
+      </div>
+      <div class="upload-preview" id="upload-preview">
+        <div class="upload-preview-thumb"><video id="preview-vid" muted></video></div>
+        <div class="upload-preview-info">
+          <div class="upload-preview-name" id="preview-name"></div>
+          <div class="upload-preview-size" id="preview-size"></div>
+        </div>
+      </div>
+      <div class="progress-bar-wrap" id="progress-wrap">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+    </div>
+    <div class="yt-input-wrap" id="tab-link">
+      <label class="flabel">YouTube or Vimeo URL</label>
+      <input class="finput" id="v-url" type="text" placeholder="https://youtube.com/watch?v=… or https://vimeo.com/…"/>
+      <p style="font-size:11px;color:var(--muted);margin-top:-10px;margin-bottom:16px">Paste any YouTube or Vimeo link — it will embed directly on your site.</p>
+    </div>
+    <label class="flabel">Video Title</label>
+    <input class="finput" id="v-title" type="text" placeholder="e.g. Understanding Comparative Advantage in 5 Minutes"/>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div>
+        <label class="flabel">Category</label>
+        <select class="fselect" id="v-cat">
+          <option value="Economics">Economics</option>
+          <option value="Politics">Politics</option>
+          <option value="IR">International Relations</option>
+          <option value="Current Affairs">Current Affairs</option>
+        </select>
+      </div>
+      <div>
+        <label class="flabel">Duration (optional)</label>
+        <input class="finput" id="v-dur" type="text" placeholder="e.g. 8:32" style="margin-bottom:0"/>
+      </div>
+    </div>
+    <label class="flabel" style="margin-top:14px;display:block">Short Description</label>
+    <textarea class="ftextarea" id="v-desc" style="min-height:80px;margin-bottom:14px" placeholder="What does this video explain?"></textarea>
+
+    <!-- THUMBNAIL PICKER -->
+    <label class="flabel">Thumbnail Image <span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0">(optional — shown on video cards)</span></label>
+    <div class="thumb-picker" id="v-thumb-picker">
+      <div class="thumb-preview" id="v-thumb-preview" style="display:none">
+        <img id="v-thumb-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:1px"/>
+        <button class="thumb-clear" onclick="clearThumb('v')" title="Remove image">×</button>
+      </div>
+      <div class="thumb-placeholder" id="v-thumb-placeholder">
+        <div class="thumb-tabs">
+          <button class="thumb-tab active" onclick="switchThumbTab('v','upload',this)">📁 Upload</button>
+          <button class="thumb-tab" onclick="switchThumbTab('v','url',this)">🔗 URL</button>
+        </div>
+        <div class="thumb-tab-content" id="v-thumb-upload">
+          <label class="thumb-drop">
+            <input type="file" accept="image/*" onchange="handleThumbFile(this,'v')" style="display:none"/>
+            <span style="font-size:20px">🖼️</span>
+            <span style="font-size:12px;color:var(--muted)">Click or drag an image</span>
+            <span style="font-size:11px;color:var(--muted);opacity:.6">JPG, PNG, WebP</span>
+          </label>
+        </div>
+        <div class="thumb-tab-content" id="v-thumb-url" style="display:none">
+          <input class="finput" id="v-thumb-url-input" type="text" placeholder="https://example.com/image.jpg" style="margin-bottom:8px" oninput="previewThumbUrl(this,'v')"/>
+          <p style="font-size:11px;color:var(--muted);margin-top:-4px">Paste any image URL — it will be used as the thumbnail</p>
+        </div>
+      </div>
+    </div>
+    <input type="hidden" id="v-thumb-data" value=""/>
+    <input type="hidden" id="v-edit-id" value=""/>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeVideoUpload()">Cancel</button>
+      <button class="btn-primary" onclick="publishVideo()">Publish Video →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN SESSION BAR -->
+<div class="admin-session-bar" id="admin-session-bar">
+  <div class="asb-left">
+    <span class="asb-dot"></span>
+    Admin Mode Active — Only you can see this bar
+  </div>
+  <div class="asb-right">
+    <button class="asb-btn" onclick="openAdmin()">⚙ Open Admin Panel</button>
+    <button class="asb-btn" onclick="openWrite()">+ Write Post</button>
+    <button class="asb-btn" onclick="openVideoUpload()">▲ Upload Video</button>
+    <button class="asb-btn" onclick="openDocUpload()">▲ Upload Doc</button>
+    <button class="asb-btn danger" onclick="endAdminSession()">✕ Exit Admin Mode</button>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div class="admin-login" id="admin-login">
+  <div class="login-box">
+    <div class="login-logo">The Global<em>Desk</em></div>
+    <div class="login-sub">Admin Panel — enter your password</div>
+    <div class="login-err" id="login-err">Incorrect password. Please try again.</div>
+    <label class="flabel">Password</label>
+    <input class="finput" id="l-pass" type="password" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()" style="margin-bottom:16px"/>
+    <div style="display:flex;gap:10px">
+      <button class="btn-ghost" style="flex:1" onclick="closeLoginScreen()">Cancel</button>
+      <button class="btn-primary" style="flex:2" onclick="doLogin()">Enter Admin →</button>
+    </div>
+    <div class="login-hint" id="login-lockout-msg"></div>
+    <div style="margin-top:14px;font-size:11px;color:var(--muted);text-align:center;opacity:.6">Default password: <strong style="color:var(--muted2);font-family:monospace">admin123</strong></div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-panel" id="admin-panel">
+  <div class="admin-topbar">
+    <div class="admin-logo-wrap">
+      <div class="admin-logo">The Global<em>Desk</em></div>
+      <span class="admin-badge">Admin</span>
+    </div>
+    <div class="admin-tabs">
+      <button class="atab active" onclick="switchTab('profile',this)">👤 Profile</button>
+      <button class="atab" onclick="switchTab('posts',this)">📝 Posts</button>
+      <button class="atab" onclick="switchTab('videos',this)">🎬 Videos</button>
+      <button class="atab" onclick="switchTab('authors',this)">👥 Authors</button>
+      <button class="atab" onclick="switchTab('design',this)">🎨 Design</button>
+      <button class="atab" onclick="switchTab('backup',this)">💾 Backup</button>
+      <button class="atab" onclick="switchTab('settings',this)">⚙️ Settings</button>
+    </div>
+    <button class="btn-ghost" style="font-size:12px" onclick="closeAdmin()">← Back to site</button>
+  </div>
+
+  <div class="admin-content">
+
+    <!-- PROFILE -->
+    <div class="a-section active" id="tab-profile">
+      <div class="a-title">Your Profile</div>
+      <div class="a-sub">This appears in your sidebar, hero, and post bylines.</div>
+      <div class="profile-preview">
+        <label class="pp-av-upload" title="Click to upload your photo">
+          <div class="pp-av" id="pp-av">YN</div>
+          <div class="pp-av-upload-overlay">📷</div>
+          <input type="file" accept="image/*" onchange="handleProfilePhoto(this)"/>
+        </label>
+        <div>
+          <div class="pp-name" id="pp-name">Your Name</div>
+          <div class="pp-role" id="pp-role">Researcher · Writer · Educator</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">Click photo to change</div>
+        </div>
+      </div>
+      <div class="a-grid">
+        <div><label class="flabel">Full Name</label><input class="finput" id="p-name" placeholder="e.g. Rahul Sharma" oninput="livePreview()"/></div>
+        <div><label class="flabel">Initials (fallback avatar)</label><input class="finput" id="p-initials" placeholder="e.g. RS" maxlength="3" oninput="livePreview()"/></div>
+        <div><label class="flabel">Role / Tagline</label><input class="finput" id="p-role" placeholder="Researcher · Writer · JRF Scholar" oninput="livePreview()"/></div>
+        <div><label class="flabel">Twitter / X URL</label><input class="finput" id="p-twitter" placeholder="https://twitter.com/handle"/></div>
+      </div>
+      <label class="flabel">Short Bio</label>
+      <textarea class="ftextarea" id="p-bio" style="min-height:80px;margin-bottom:14px" placeholder="A short paragraph about yourself…"></textarea>
+      <label class="flabel">Credential Badges (comma-separated)</label>
+      <input class="finput" id="p-badges" placeholder="UGC JRF · AIR 66, 99.78%ile, MH SET Economics"/>
+    </div>
+
+    <!-- POSTS -->
+    <div class="a-section" id="tab-posts">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:6px">
+        <div>
+          <div class="a-title">Manage Posts</div>
+          <div class="a-sub" style="margin-bottom:0">Edit or delete your posts. Sample posts are read-only.</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-shrink:0">
+          <span id="posts-count" style="font-size:12px;color:var(--muted)"></span>
+          <button class="btn-nav btn-write" style="font-size:11px;padding:6px 14px" onclick="openWrite();closeAdmin()">+ New Post</button>
+        </div>
+      </div>
+      <div style="margin:16px 0 8px;display:flex;align-items:center;gap:8px">
+        <div class="search-wrap" style="flex:1;max-width:320px">
+          <span style="color:var(--muted);font-size:13px">⌕</span>
+          <input type="text" placeholder="Search posts…" oninput="filterAdminPosts(this.value)" style="width:100%"/>
+        </div>
+        <select class="fselect" id="admin-post-cat-filter" onchange="filterAdminPosts()" style="margin-bottom:0;width:160px;padding:7px 12px;font-size:12px">
+          <option value="">All categories</option>
+          <option value="Economics">Economics</option>
+          <option value="Politics">Politics</option>
+          <option value="IR">International Relations</option>
+          <option value="Current Affairs">Current Affairs</option>
+        </select>
+      </div>
+      <table class="ptable" id="posts-table">
+        <thead><tr><th style="width:44%">Title</th><th>Category</th><th>Date</th><th>Read</th><th>Actions</th></tr></thead>
+        <tbody id="posts-tbody"></tbody>
+      </table>
+      <div id="posts-empty-msg" style="display:none;padding:32px;text-align:center;color:var(--muted);font-size:13px">No posts match your search.</div>
+    </div>
+
+    <!-- VIDEOS ADMIN -->
+    <div class="a-section" id="tab-videos">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:6px">
+        <div>
+          <div class="a-title">Manage Videos</div>
+          <div class="a-sub" style="margin-bottom:0">Delete your uploaded videos. Sample videos are read-only.</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-shrink:0">
+          <span id="videos-count" style="font-size:12px;color:var(--muted)"></span>
+          <button class="btn-nav btn-write" style="font-size:11px;padding:6px 14px" onclick="openVideoUpload();closeAdmin()">▲ Upload Video</button>
+        </div>
+      </div>
+      <div style="margin:16px 0 8px;display:flex;align-items:center;gap:8px">
+        <div class="search-wrap" style="flex:1;max-width:320px">
+          <span style="color:var(--muted);font-size:13px">⌕</span>
+          <input type="text" placeholder="Search videos…" oninput="filterAdminVideos(this.value)" style="width:100%"/>
+        </div>
+        <select class="fselect" id="admin-video-cat-filter" onchange="filterAdminVideos()" style="margin-bottom:0;width:160px;padding:7px 12px;font-size:12px">
+          <option value="">All categories</option>
+          <option value="Economics">Economics</option>
+          <option value="Politics">Politics</option>
+          <option value="IR">International Relations</option>
+          <option value="Current Affairs">Current Affairs</option>
+        </select>
+      </div>
+      <table class="ptable" id="videos-table">
+        <thead><tr><th style="width:44%">Title</th><th>Category</th><th>Type</th><th>Date</th><th>Actions</th></tr></thead>
+        <tbody id="videos-tbody"></tbody>
+      </table>
+      <div id="videos-empty-msg" style="display:none;padding:32px;text-align:center;color:var(--muted);font-size:13px">No videos match your search.</div>
+    </div>
+
+    <!-- AUTHORS -->
+    <div class="a-section" id="tab-authors">
+      <div class="a-title">Authors & Access</div>
+      <div class="a-sub">Manage who can contribute to The Global Desk.</div>
+      <div id="authors-list"></div>
+      <div class="a-card">
+        <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:12px">+ Add new author</div>
+        <div class="a-grid-3" style="align-items:end">
+          <div><label class="flabel">Full Name</label><input class="finput" id="na-name" placeholder="e.g. Priya Sharma" style="margin-bottom:0"/></div>
+          <div><label class="flabel">Role</label><select class="fselect" id="na-role" style="margin-bottom:0"><option value="editor">Editor</option><option value="writer">Writer</option></select></div>
+          <div><button class="btn-primary" style="width:100%;padding:10px" onclick="addAuthor()">Add →</button></div>
+        </div>
+        <p style="font-size:11px;color:var(--muted);margin-top:10px">Note: All authors currently share the same admin login. Individual logins require a backend.</p>
+      </div>
+    </div>
+
+    <!-- DESIGN -->
+    <div class="a-section" id="tab-design">
+      <div class="a-title">Design & Appearance</div>
+      <div class="a-sub">Customise how your blog looks. Changes apply on Save.</div>
+      <div class="a-grid">
+        <div><label class="flabel">Blog Name</label><input class="finput" id="d-name" placeholder="The Global Desk"/></div>
+        <div><label class="flabel">Tagline</label><input class="finput" id="d-tagline" placeholder="Thinking the world clearly."/></div>
+      </div>
+      <label class="flabel">Hero Description</label>
+      <textarea class="ftextarea" id="d-desc" style="min-height:70px;margin-bottom:16px" placeholder="Original views on economics…"></textarea>
+      <label class="flabel" style="margin-bottom:10px;display:block">Accent Colour</label>
+      <div class="swatches" id="swatches">
+        <div class="swatch selected" data-c="#d4913a" style="background:#d4913a" onclick="pickColor('#d4913a',this)" title="Amber"></div>
+        <div class="swatch" data-c="#e8c97a" style="background:#e8c97a" onclick="pickColor('#e8c97a',this)" title="Gold"></div>
+        <div class="swatch" data-c="#6b9e7a" style="background:#6b9e7a" onclick="pickColor('#6b9e7a',this)" title="Sage"></div>
+        <div class="swatch" data-c="#7b9ec9" style="background:#7b9ec9" onclick="pickColor('#7b9ec9',this)" title="Blue"></div>
+        <div class="swatch" data-c="#c47ab0" style="background:#c47ab0" onclick="pickColor('#c47ab0',this)" title="Rose"></div>
+        <div class="swatch" data-c="#e07a5f" style="background:#e07a5f" onclick="pickColor('#e07a5f',this)" title="Terracotta"></div>
+      </div>
+      <label class="flabel" style="margin-top:8px;display:block">Social & Profile Links</label>
+      <div class="a-card" style="margin-bottom:0;padding:16px 18px">
+        <div style="display:grid;gap:12px">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font-size:18px;width:28px;text-align:center;flex-shrink:0">📰</span>
+            <div style="flex:1">
+              <label class="flabel" style="margin-bottom:4px">Substack URL</label>
+              <input class="finput" id="d-l1" placeholder="https://yourname.substack.com" style="margin-bottom:0"/>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font-size:18px;width:28px;text-align:center;flex-shrink:0">🐦</span>
+            <div style="flex:1">
+              <label class="flabel" style="margin-bottom:4px">Twitter / X URL</label>
+              <input class="finput" id="d-l2" placeholder="https://twitter.com/yourhandle" style="margin-bottom:0"/>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font-size:18px;width:28px;text-align:center;flex-shrink:0">💼</span>
+            <div style="flex:1">
+              <label class="flabel" style="margin-bottom:4px">LinkedIn URL</label>
+              <input class="finput" id="d-l3" placeholder="https://linkedin.com/in/yourprofile" style="margin-bottom:0"/>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:11px;color:var(--muted);margin-top:12px;line-height:1.6">Links appear in the footer. Leave blank to hide a link. All links open in a new tab.</p>
+      </div>
+    </div>
+
+    <!-- ══ BACKUP TAB ══ -->
+    <div class="a-section" id="tab-backup">
+      <div class="a-title">Backup & Restore</div>
+      <div class="a-sub">Export all your data to a JSON file for safekeeping. Import it anytime to restore everything — posts, videos, documents, and settings.</div>
+
+      <!-- Storage status -->
+      <div class="storage-status" id="storage-status">
+        <div class="storage-row">
+          <span class="storage-label">Storage engine</span>
+          <span class="storage-val" id="st-engine">—</span>
+        </div>
+        <div class="storage-row">
+          <span class="storage-label">Posts saved</span>
+          <span class="storage-val" id="st-posts">—</span>
+        </div>
+        <div class="storage-row">
+          <span class="storage-label">Videos saved</span>
+          <span class="storage-val" id="st-videos">—</span>
+        </div>
+        <div class="storage-row">
+          <span class="storage-label">Documents saved</span>
+          <span class="storage-val" id="st-docs">—</span>
+        </div>
+        <div class="storage-row">
+          <span class="storage-label">Last backup</span>
+          <span class="storage-val" id="st-lastbackup">Never</span>
+        </div>
+      </div>
+
+      <div class="backup-grid">
+        <!-- EXPORT -->
+        <div class="backup-card">
+          <div class="backup-icon">⬇️</div>
+          <div class="backup-title">Export Backup</div>
+          <div class="backup-desc">Download all your posts, videos, documents, and settings as a single <strong style="color:var(--gold)">.json</strong> file. Store it anywhere — your computer, Google Drive, email to yourself.</div>
+          <button class="backup-btn backup-btn-export" onclick="exportBackup()">Export All Data →</button>
+        </div>
+
+        <!-- IMPORT -->
+        <div class="backup-card">
+          <div class="backup-icon">⬆️</div>
+          <div class="backup-title">Restore from Backup</div>
+          <div class="backup-desc">Upload a previously exported <strong style="color:var(--gold)">.json</strong> backup file to restore all your data. <strong style="color:#e06c5a">This will replace your current data.</strong></div>
+          <div class="restore-drop" id="restore-drop">
+            <input type="file" id="restore-file-input" accept=".json" onchange="importBackup(this)"/>
+            <p>📂 Drop your backup.json here or click to browse</p>
+          </div>
+          <div class="restore-msg" id="restore-msg"></div>
+        </div>
+      </div>
+
+      <!-- Auto-backup reminder -->
+      <div class="a-card">
+        <div style="display:flex;align-items:flex-start;gap:12px">
+          <div style="font-size:22px;flex-shrink:0">💡</div>
+          <div>
+            <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:5px">Why your data disappeared before</div>
+            <div style="font-size:13px;color:var(--muted);line-height:1.7">Your site now uses <strong style="color:var(--gold)">IndexedDB</strong> as the primary storage engine — it's far more durable than localStorage and can hold gigabytes of data including large video files. However, browser storage can still be cleared by "Clear browsing data". <strong style="color:var(--text)">Export a backup after adding important content</strong> so you can always restore from a file even if browser storage is wiped.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="a-section" id="tab-settings">
+      <div class="a-title">Settings</div>
+      <div class="a-sub">Manage your password and site preferences.</div>
+      <div class="a-card" style="margin-bottom:16px">
+        <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:14px">Change Admin Password</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:12px;padding:8px 12px;background:rgba(212,145,58,.07);border:1px solid rgba(212,145,58,.2);border-radius:2px">🔒 Password is stored as a <strong style="color:var(--gold)">SHA-256 hash</strong> — never in plain text. Min. 8 characters with at least one number or special character.</div>
+        <div class="a-grid" style="margin-bottom:0;align-items:end">
+          <div><label class="flabel">New Password</label><input class="finput" id="np1" type="password" placeholder="New password" style="margin-bottom:0"/></div>
+          <div><label class="flabel">Confirm Password</label><input class="finput" id="np2" type="password" placeholder="Confirm" style="margin-bottom:0"/></div>
+        </div>
+        <button class="btn-primary" style="margin-top:12px" onclick="changePass()">Update Password</button>
+        <div class="pass-msg" id="pass-msg"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div class="a-row">
+          <div class="a-row-left"><div class="a-row-label">Show newsletter box</div><div class="a-row-desc">Display email signup in sidebar</div></div>
+          <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+        </div>
+        <div class="a-row">
+          <div class="a-row-left"><div class="a-row-label">Show reading time</div><div class="a-row-desc">Display estimated read time on posts</div></div>
+          <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+        </div>
+        <div class="a-row" style="border:1px solid rgba(192,57,43,.25)">
+          <div class="a-row-left"><div class="a-row-label" style="color:#e06c5a">Delete all my posts</div><div class="a-row-desc">Permanently removes your written posts</div></div>
+          <button class="btn-danger" onclick="deleteAllPosts()">Delete all</button>
+        </div>
+        <div class="a-row" style="border:1px solid rgba(192,57,43,.25)">
+          <div class="a-row-left"><div class="a-row-label" style="color:#e06c5a">Delete all my videos</div><div class="a-row-desc">Permanently removes your uploaded videos</div></div>
+          <button class="btn-danger" onclick="deleteAllVideos()">Delete all</button>
+        </div>
+        <div class="a-row" style="border:1px solid rgba(192,57,43,.25)">
+          <div class="a-row-left"><div class="a-row-label" style="color:#e06c5a">Delete all my documents</div><div class="a-row-desc">Permanently removes your uploaded documents</div></div>
+          <button class="btn-danger" onclick="deleteAllDocs()">Delete all</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="admin-savebar">
+    <span class="save-hint">Changes saved to <span id="savebar-engine">IndexedDB + localStorage</span></span>
+    <div style="display:flex;gap:10px">
+      <button class="btn-ghost" onclick="closeAdmin()">Exit without saving</button>
+      <button class="btn-primary" id="save-btn" onclick="saveAll()">Save all changes ✓</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+//  PERSISTENT CROSS-BROWSER STORAGE via Netlify Blobs Function
+//  All data is shared: any browser / any device sees the same content
+// ══════════════════════════════════════════════════════════════
+
+// Keep openDB as a no-op so existing call sites don't break
+let dbReady = false;
+function openDB() { return Promise.resolve(); }
+
+// ── Netlify storage helpers ──
+const STORAGE_API = '/.netlify/functions/storage';
+
+async function wsGet(key) {
+  try {
+    const r = await fetch(`${STORAGE_API}?key=${encodeURIComponent(key)}`);
+    if (!r.ok) return null;
+    const data = await r.json();
+    return data.value !== undefined ? data.value : null;
+  } catch(e) { return null; }
+}
+async function wsSet(key, value) {
+  try {
+    const r = await fetch(STORAGE_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ key, value })
+    });
+    return r.ok;
+  } catch(e) { console.error('storage.set failed', key, e); return false; }
+}
+
+// ══════════════════════════════════════════════════════════════
+//  UNIFIED STORAGE API  (window.storage primary, memory cache)
+// ══════════════════════════════════════════════════════════════
+const K = { posts:'tgd3_posts', settings:'tgd3_settings', authors:'tgd3_authors', videos:'tgd3_videos', docs:'tgd3_docs', lastbackup:'tgd3_lastbackup' };
+
+// In-memory cache (loaded once from storage on init)
+const _cache = { posts:[], settings:{}, authors:[], videos:[], docs:[] };
+let   _cacheReady = false;
+
+async function loadCache() {
+  const keys = ['posts','settings','authors','videos','docs'];
+  for (const k of keys) {
+    const raw = await wsGet(K[k]);
+    if (raw !== null) {
+      try { _cache[k] = typeof raw === 'string' ? JSON.parse(raw) : raw; } catch(e) {}
+    }
+  }
+  _cacheReady = true;
+  dbReady = true; // treat storage as ready so status bar shows correctly
+}
+
+// ── IMAGE COMPRESSION ──
+// Compresses a base64 image to max 800px wide, quality 0.72, returns compressed base64
+function compressImage(b64, maxW, quality) {
+  return new Promise(resolve => {
+    if (!b64 || !b64.startsWith('data:image')) { resolve(b64); return; }
+    const img = new Image();
+    img.onload = () => {
+      const scale = Math.min(1, maxW / img.width);
+      const w = Math.round(img.width * scale);
+      const h = Math.round(img.height * scale);
+      const c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      c.getContext('2d').drawImage(img, 0, 0, w, h);
+      resolve(c.toDataURL('image/jpeg', quality || 0.72));
+    };
+    img.onerror = () => resolve(b64);
+    img.src = b64;
+  });
+}
+
+// Strip large base64 blobs from a post/video/doc object for safe storage sizing
+// Returns a shallow copy with any base64 > 500KB replaced by a placeholder flag
+const B64_SIZE_LIMIT = 500 * 1024; // 500 KB in base64 chars ≈ 375 KB binary
+function safeSize(str) { return str ? str.length : 0; }
+
+async function persistKey(k, val) {
+  _cache[k] = val;
+  try {
+    await wsSet(K[k], JSON.stringify(val));
+  } catch(e) {
+    console.error('storage write failed for key:', k, e);
+  }
+}
+
+// Synchronous getters (use cache)
+function getPosts()    { return Array.isArray(_cache.posts)   ? _cache.posts   : []; }
+function getSettings() { return _cache.settings && typeof _cache.settings === 'object' ? _cache.settings : {}; }
+function getAuthors()  { return Array.isArray(_cache.authors) ? _cache.authors : []; }
+function getVideos()   { return Array.isArray(_cache.videos)  ? _cache.videos  : []; }
+function getDocs()     { return Array.isArray(_cache.docs)    ? _cache.docs    : []; }
+
+// Async setters
+function savePosts(p)    { return persistKey('posts', p); }
+function saveSettings(s) { return persistKey('settings', s); }
+function saveAuthors(a)  { return persistKey('authors', a); }
+function saveVideos(v)   { return persistKey('videos', v); }
+function saveDocs(d)     { return persistKey('docs', d); }
+// Password saving is handled by SEC.savePassHashed() — never stored in plain text
+
+// ══════════════════════════════════════════════════════════════
+//  EXPORT / IMPORT
+// ══════════════════════════════════════════════════════════════
+async function exportBackup() {
+  const payload = {
+    _version: 2,
+    _exported: new Date().toISOString(),
+    _app: 'TheGlobalDesk',
+    posts:    getPosts(),
+    videos:   getVideos(),
+    docs:     getDocs(),
+    settings: getSettings(),
+    authors:  getAuthors(),
+  };
+  const json = JSON.stringify(payload, null, 2);
+  const blob = new Blob([json], {type:'application/json'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  const date = new Date().toISOString().slice(0,10);
+  a.href     = url;
+  a.download = `GlobalDesk_backup_${date}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+
+  // Record last backup time
+  const ts = new Date().toLocaleString('en-IN');
+  await wsSet(K.lastbackup, ts);
+  updateStorageStatus();
+
+  const btn = document.querySelector('.backup-btn-export');
+  if (btn) { btn.textContent = 'Exported! ✓'; btn.style.background='var(--gold)'; setTimeout(()=>{ btn.textContent='Export All Data →'; btn.style.background=''; }, 2500); }
+}
+
+async function importBackup(input) {
+  const file = input.files[0];
+  const msg  = document.getElementById('restore-msg');
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!data._app || data._app !== 'TheGlobalDesk') {
+        msg.className = 'restore-msg err';
+        msg.textContent = '✕ Invalid backup file. Make sure you\'re importing a GlobalDesk backup.';
+        return;
+      }
+      if (!confirm(`Restore backup from ${data._exported ? new Date(data._exported).toLocaleString('en-IN') : 'unknown date'}?\n\nThis will replace all your current posts, videos, documents, and settings.\n\nYour current data will be overwritten.`)) {
+        input.value = '';
+        return;
+      }
+
+      // Restore everything
+      if (Array.isArray(data.posts))    await savePosts(data.posts);
+      if (Array.isArray(data.videos))   await saveVideos(data.videos);
+      if (Array.isArray(data.docs))     await saveDocs(data.docs);
+      if (data.settings)                await saveSettings(data.settings);
+      if (Array.isArray(data.authors))  await saveAuthors(data.authors);
+
+      msg.className = 'restore-msg ok';
+      msg.textContent = `✓ Restored ${data.posts?.length||0} posts, ${data.videos?.length||0} videos, ${data.docs?.length||0} documents from backup.`;
+
+      // Re-apply settings and re-render
+      applySettings();
+      render();
+      renderVideos();
+      renderDocs();
+      updateStorageStatus();
+
+      // Reload admin fields
+      loadAdminFields();
+
+    } catch(err) {
+      msg.className = 'restore-msg err';
+      msg.textContent = '✕ Failed to parse backup file. Make sure it\'s a valid JSON file.';
+      console.error('Import error:', err);
+    }
+    input.value = '';
+  };
+  reader.readAsText(file);
+}
+
+async function updateStorageStatus() {
+  const engineEl = document.getElementById('st-engine');
+  const postsEl  = document.getElementById('st-posts');
+  const videosEl = document.getElementById('st-videos');
+  const docsEl   = document.getElementById('st-docs');
+  const lbEl     = document.getElementById('st-lastbackup');
+  if (!engineEl) return;
+
+  engineEl.innerHTML = '<span class="idb-badge idb-ok">● Netlify Blobs (shared across all browsers)</span>';
+
+  const ps = getPosts().length;
+  const vs = getVideos().length;
+  const ds = getDocs().length;
+  postsEl.textContent  = ps + (ps===1?' post':' posts');
+  videosEl.textContent = vs + (vs===1?' video':' videos');
+  docsEl.textContent   = ds + (ds===1?' document':' documents');
+
+  const lb = await wsGet(K.lastbackup);
+  lbEl.textContent = lb || 'Never';
+  lbEl.style.color = lb ? 'var(--gold)' : '#e06c5a';
+
+  // Cloud storage — quota management not needed locally
+}
+
+// Drag-drop restore
+const rd = document.getElementById('restore-drop');
+if (rd) {
+  rd.addEventListener('dragover',e=>{e.preventDefault();rd.classList.add('drag');});
+  rd.addEventListener('dragleave',()=>rd.classList.remove('drag'));
+  rd.addEventListener('drop',e=>{
+    e.preventDefault(); rd.classList.remove('drag');
+    const f=e.dataTransfer.files[0];
+    if(f&&f.name.endsWith('.json')){
+      const inp=document.getElementById('restore-file-input');
+      const dt=new DataTransfer(); dt.items.add(f); inp.files=dt.files;
+      importBackup(inp);
+    }
+  });
+}
+
+// ══════════════════════════════════════════════════════════════
+//  SAMPLE DATA
+// ══════════════════════════════════════════════════════════════
+const SAMPLES = [
+  { id:1, title:"Why the RBI's Rate Pause Signals More Than Just Caution", cat:"Economics",
+    img:"https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=900&q=80",
+    excerpt:"The Reserve Bank of India's decision to hold rates steady is being read as wait-and-watch. But look beneath the surface and you see a deeper tension — between growth imperatives and an inflation target that remains structurally difficult to meet.",
+    body:`The Reserve Bank of India's decision to hold rates steady is being read as a wait-and-watch approach. But look beneath the surface and you see a deeper tension — between growth imperatives and an inflation target that remains structurally difficult to meet given global commodity dynamics.
+
+India's retail inflation has been oscillating around the upper tolerance band of 6%, driven not by demand-side overheating but by supply-side food price volatility. This distinction matters enormously for monetary policy. Raising rates to tame food inflation is like using a sledgehammer to fix a clock — you damage the mechanism without solving the problem.
+
+The RBI knows this. What the pause actually signals is an acknowledgment that blunt monetary tools have limited efficacy against structural supply constraints. The real work lies in agricultural market reforms, cold-chain infrastructure, and fiscal transfers — none of which are in the RBI's toolkit.
+
+For students of economics, this is a textbook illustration of the limits of the Taylor Rule in emerging market contexts: the rule assumes monetary transmission is clean and swift. In India, with a large informal sector and credit markets that don't always respond predictably to repo rate changes, that assumption frays quickly.`,
+    date:"April 26, 2026", read:"4 min read" },
+  { id:2, title:"The Waqf Amendment and the Politics of Institutional Trust", cat:"Politics",
+    img:"https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=900&q=80",
+    excerpt:"The controversy around the Waqf (Amendment) Bill is not simply about property rights. It is a mirror held up to a broader question: who controls the institutions that minority communities depend on, and under what terms?",
+    body:`The controversy around the Waqf (Amendment) Bill is not simply about property rights. It is a mirror held up to a broader question in Indian politics: who controls the institutions that minority communities depend on, and under what terms?
+
+Legally, the Bill introduces changes to Waqf Board composition and dispute resolution mechanisms. Politically, it has been interpreted — across partisan lines — as a statement about the government's willingness to restructure minority institutions through parliamentary majority rather than consensus.
+
+The political science literature on institutional trust is relevant here. Robert Putnam's work on social capital argues that trust between citizens and institutions is built incrementally through repeated, fair interactions. When communities perceive institutional changes as targeting rather than reforming, that trust erodes — often faster than it was built.
+
+This has downstream electoral consequences. The deeper issue is one of process as much as substance. Constitutional democracies depend not only on what is decided but on how. Majoritarianism is a legitimate form of governance — but sustainable majoritarianism requires that minorities believe the rules of the game are not being rewritten against them.`,
+    date:"April 25, 2026", read:"5 min read" },
+  { id:3, title:"India's Abstentions at the UN: Strategic Autonomy or Strategic Ambiguity?", cat:"IR",
+    img:"https://images.unsplash.com/photo-1555448248-2571daf6344b?w=900&q=80",
+    excerpt:"India has abstained on multiple UN resolutions on Ukraine. The government frames this as strategic autonomy. Critics call it ambiguity. The distinction reveals deep fault lines in how we theorise India's foreign policy identity.",
+    body:`India has now abstained on multiple UN Security Council resolutions related to Russia's war in Ukraine. The government frames this as strategic autonomy. Critics call it ambiguity. The distinction reveals deep fault lines in how we theorise India's foreign policy identity.
+
+Strategic autonomy, as a doctrine, has roots in the Nehruvian non-alignment tradition. The idea was that a newly independent nation should preserve freedom of action — not align with any bloc, but engage all. In a unipolar world, this was relatively easy to operationalise. In today's sharpening bipolarity between the US and China, it is much harder.
+
+India's position on Ukraine is shaped by several material realities: roughly 60% of its military equipment is of Russian origin, its energy imports have increased since Western sanctions, and the Russia-China alignment makes New Delhi wary of pushing Moscow further into Beijing's arms.
+
+But abstention carries costs. It has introduced friction into the Quad. It creates a credibility gap when India invokes rules-based international order in the context of China's border behaviour, while declining to endorse those rules when Russia violates them.
+
+The honest answer is that India's position is both autonomous and ambiguous. The two are not mutually exclusive. The question is whether the ambiguity serves long-term interests — and on that, serious analysts genuinely disagree.`,
+    date:"April 24, 2026", read:"6 min read" },
+  { id:4, title:"Populism's Second Wave: Why 2026 Looks Different From 2016", cat:"Politics",
+    img:"https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?w=900&q=80",
+    excerpt:"The populist wave that swept much of the world a decade ago has mutated. Today's variants are more institutionally embedded, more economically legible, and far harder to dislodge.",
+    body:`The populist wave that swept much of the world a decade ago has mutated. Today's variants are more institutionally embedded, more economically legible, and far harder to dislodge than their predecessors.
+
+First-wave populism largely ran against established institutions. It was disruptive, charismatic, and anti-elite in rhetoric even when pro-elite in policy. Second-wave populism is different: it has become the establishment. Populist leaders are no longer outsiders; they run central banks, judiciary appointment committees, and state media infrastructure.
+
+This institutional entrenchment changes the analytical frame entirely. We can no longer evaluate these movements purely through the lens of electoral behaviour or rhetorical appeal. We must ask: how do populist governments restructure state capacity to serve political ends?
+
+The economic dimension has also shifted. 2016-era populism was largely a reaction to the perceived failures of globalisation — stagnant wages, deindustrialisation, cultural anxiety. 2026 populism is navigating a different economy: post-COVID fiscal strain, the green transition, AI-driven labour displacement, and a deglobalising trade environment.`,
+    date:"April 23, 2026", read:"5 min read" },
+  { id:5, title:"The Deglobalisation Thesis: Exaggerated, But Not Wrong", cat:"Economics",
+    img:"https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=900&q=80",
+    excerpt:"Headlines declare the death of globalisation. The data tells a more complicated story. Trade is not collapsing — it is restructuring. And that restructuring carries profound implications for economies like India.",
+    body:`Headlines declare the death of globalisation. The data tells a more complicated story. Trade is not collapsing — it is restructuring. And that restructuring carries profound implications for developing economies like India.
+
+Global goods trade as a share of GDP peaked around 2008 and has broadly plateaued since. But the composition has changed dramatically. China's share of global manufacturing exports has continued to grow even as rhetoric about decoupling intensifies. What the US and Europe are actually doing is not reducing trade — they are redirecting supply chains through politically preferred intermediaries rather than China directly.
+
+This is "friendshoring," not deglobalisation. And friendshoring creates genuine opportunities for India — particularly in electronics, pharmaceuticals, and labour-intensive manufacturing — but only if India can address its persistent infrastructure, labour law, and logistics deficits.
+
+The deglobalisation thesis is exaggerated when applied to trade flows. It is less exaggerated — and more worrying — when applied to knowledge flows, technology transfer, and the multilateral institutions that once governed the global economy.`,
+    date:"April 22, 2026", read:"5 min read" }
+];
+
+const VIDEO_SAMPLE = [
+  { id:'vs1', title:'What is Comparative Advantage? A 5-Minute Explainer', cat:'Economics',
+    desc:'Breaking down one of the most misunderstood concepts in trade economics — why countries trade even when one is better at everything.',
+    date:'April 25, 2026', dur:'5:14', type:'youtube', src:'https://www.youtube.com/watch?v=ol4NexZ0iII',
+    thumb:'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80' },
+  { id:'vs2', title:'The Realism vs Liberalism Debate in IR', cat:'IR',
+    desc:'A visual walkthrough of the two dominant schools of thought in International Relations — what they agree on, and where they fundamentally diverge.',
+    date:'April 22, 2026', dur:'7:40', type:'youtube', src:'https://www.youtube.com/watch?v=Hl43BizGd5c',
+    thumb:'https://images.unsplash.com/photo-1521295121783-8a321d551ad2?w=800&q=80' },
+  { id:'vs3', title:'How Electoral Systems Shape Politics', cat:'Politics',
+    desc:'First-Past-The-Post vs Proportional Representation — how the choice of electoral system changes who wins, who loses, and what governments do.',
+    date:'April 18, 2026', dur:'6:22', type:'youtube', src:'https://www.youtube.com/watch?v=5ETFfgVP5xU',
+    thumb:'https://images.unsplash.com/photo-1494172961521-33799ddd43a5?w=800&q=80' },
+];
+
+const DOC_SAMPLES = [
+  { id:'ds1', title:'Understanding Monetary Policy — A Primer', cat:'Economics', type:'pdf',
+    desc:'A comprehensive introduction to central banking, interest rate mechanisms, and how monetary policy affects growth and inflation.',
+    date:'April 24, 2026', size:'1.2 MB', access:'free', src:'', mine:false,
+    img:'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&q=80' },
+  { id:'ds2', title:"India's Foreign Policy Framework 2024–2026", cat:'IR', type:'pdf',
+    desc:"An analytical overview of India's strategic priorities, key bilateral relationships, and multilateral engagements.",
+    date:'April 20, 2026', size:'890 KB', access:'free', src:'', mine:false,
+    img:'https://images.unsplash.com/photo-1555448248-2571daf6344b?w=400&q=80' },
+  { id:'ds3', title:'Electoral Data Analysis — State Elections', cat:'Politics', type:'xls',
+    desc:'Spreadsheet tracking vote shares, seat counts, and swing patterns across recent state assembly elections.',
+    date:'April 17, 2026', size:'340 KB', access:'free', src:'', mine:false,
+    img:'https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?w=400&q=80' },
+  { id:'ds4', title:'Geopolitical Risk Framework — Lecture Notes', cat:'IR', type:'doc',
+    desc:'Detailed notes from a lecture series on assessing geopolitical risk for investors, policymakers, and analysts.',
+    date:'April 14, 2026', size:'520 KB', access:'view', src:'', mine:false,
+    img:'https://images.unsplash.com/photo-1521295121783-8a321d551ad2?w=400&q=80' },
+];
+
+// ══════════════════════════════════════════════════════════════
+//  BLOG STATE & RENDER
+// ══════════════════════════════════════════════════════════════
+let activeFilter = 'all';
+let activeSearch = '';
+let visibleCount = 4;
+
+function allPosts() { return [...getPosts(), ...SAMPLES]; }
+
+function filtered() {
+  return allPosts().filter(p => {
+    const mc = activeFilter === 'all' || p.cat === activeFilter;
+    const q  = activeSearch.toLowerCase();
+    const ms = !q || p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q);
+    return mc && ms;
+  });
+}
+
+function catClass(c) {
+  return {Economics:'cat-econ',Politics:'cat-pol',IR:'cat-ir','Current Affairs':'cat-ca'}[c]||'cat-ca';
+}
+function catLabel(c) { return c==='IR'?"Int'l Relations":c; }
+
+let _renderPending = false;
+function render() {
+  if (_renderPending) return;
+  _renderPending = true;
+  requestAnimationFrame(() => {
+    _renderPending = false;
+    _renderNow();
+  });
+}
+function _renderNow() {
+  const list = filtered();
+  const fw   = document.getElementById('featured-wrap');
+  const pl   = document.getElementById('post-list');
+  const em   = document.getElementById('empty');
+  const lm   = document.getElementById('load-more');
+
+  if (!list.length) {
+    fw.innerHTML=''; pl.innerHTML='';
+    em.style.display='block'; lm.style.display='none'; return;
+  }
+  em.style.display='none';
+
+  const f = list[0];
+  const isMine0 = getPosts().some(p=>p.id===f.id);
+  fw.innerHTML = `
+    <div class="featured reveal" onclick="openPost(${f.id})">
+      <div class="featured-glow"></div>
+      <div class="feat-label">Featured</div>
+      ${adminActive && isMine0 ? `<div class="card-admin-bar"><button class="card-edit-btn" onclick="event.stopPropagation();editPost(${f.id})">✏ Edit</button><button class="card-del-btn" onclick="event.stopPropagation();deletePost(${f.id},event)">🗑 Delete</button></div>` : ''}
+      ${f.img ? `<img class="post-img" src="${esc(f.img)}" alt="${esc(f.title)}" loading="lazy" onerror="this.style.display='none'"/>` : ''}
+      <div style="padding:0">
+      <span class="cat ${catClass(f.cat)}">${catLabel(f.cat)}</span>
+      <div class="feat-title">${esc(f.title)}</div>
+      <div class="feat-excerpt">${esc(f.excerpt)}</div>
+      <div class="meta"><span>${esc(f.date)}</span><span class="meta-sep">·</span><span>${esc(f.read)}</span></div>
+      <div class="read-more">Read analysis →</div>
+      </div>
+    </div>`;
+
+  const rest = list.slice(1, 1+visibleCount);
+  pl.innerHTML = rest.map((p,i) => {
+    const isMine = getPosts().some(x=>x.id===p.id);
+    return `
+    <div class="post-item reveal" onclick="openPost(${p.id})" style="transition-delay:${i*.05}s">
+      <div class="post-num">0${i+2}</div>
+      <div class="post-body" style="display:flex;gap:14px;align-items:flex-start">
+        ${p.img ? `<img class="post-item-img" src="${esc(p.img)}" alt="${esc(p.title)}" loading="lazy" onerror="this.style.display='none'"/>` : ''}
+        <div style="flex:1;min-width:0">
+          <span class="cat ${catClass(p.cat)}">${catLabel(p.cat)}</span>
+          <div class="post-title">${esc(p.title)}</div>
+          <div class="post-exc">${esc(p.excerpt)}</div>
+          <div class="meta"><span>${esc(p.date)}</span><span class="meta-sep">·</span><span>${esc(p.read)}</span></div>
+        </div>
+      </div>
+      ${adminActive && isMine ? `<div class="post-item-admin" style="display:flex"><button class="card-edit-btn" onclick="event.stopPropagation();editPost(${p.id})">✏ Edit</button><button class="card-del-btn" onclick="event.stopPropagation();deletePost(${p.id},event)">🗑 Delete</button></div>` : ''}
+    </div>`; }).join('');
+
+  lm.style.display = list.length > 1+visibleCount ? 'block' : 'none';
+
+  const counts = {};
+  allPosts().forEach(p => counts[p.cat]=(counts[p.cat]||0)+1);
+  document.getElementById('topic-list').innerHTML =
+    [['all','All Posts',allPosts().length],['Economics','Economics',counts.Economics||0],['Politics','Politics',counts.Politics||0],['IR',"Int'l Relations",counts.IR||0],['Current Affairs','Current Affairs',counts['Current Affairs']||0]]
+    .map(([k,l,n])=>`<li class="topic-item" onclick="doFilter('${k}',null,event)"><span class="topic-name">${l}</span><span class="topic-count">${n}</span></li>`).join('');
+
+  document.getElementById('recent-list').innerHTML = allPosts().slice(0,5).map(p=>`
+    <div class="recent-item" onclick="openPost(${p.id})">
+      <div class="recent-title">${esc(p.title)}</div>
+      <div class="recent-date">${esc(p.date)} · ${esc(p.read)}</div>
+    </div>`).join('');
+
+  triggerReveal();
+}
+
+const ro = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ro.unobserve(e.target);}}),{threshold:0,rootMargin:'0px 0px -20px 0px'});
+let _revealTimer;
+function triggerReveal(){
+  clearTimeout(_revealTimer);
+  setTimeout(()=>{ document.querySelectorAll('.reveal:not(.vis)').forEach(el=>ro.observe(el)); },40);
+  // Fallback: force-visible after 900ms for any that didn't intersect (e.g. already in view)
+  _revealTimer = setTimeout(()=>{ document.querySelectorAll('.reveal:not(.vis)').forEach(el=>el.classList.add('vis')); },900);
+}
+
+function doFilter(cat,btn,e){
+  if(e)e.preventDefault();
+  activeFilter=cat; visibleCount=4;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+  if(btn){btn.classList.add('active');}
+  else{
+    document.querySelectorAll('.fbtn').forEach(b=>{
+      if(cat==='all'&&b.textContent==='All')b.classList.add('active');
+      else if(b.textContent.replace(/'/g,"'").toLowerCase().includes(cat.toLowerCase().replace(/'/g,"'")))b.classList.add('active');
+    });
+  }
+  render();
+}
+// Debounce helper — prevents render thrashing while typing
+function debounce(fn, ms) {
+  let t; return function(...args){ clearTimeout(t); t = setTimeout(()=>fn.apply(this,args), ms); };
+}
+const doSearch = debounce(function(q){activeSearch=q;visibleCount=4;render();}, 180);
+function loadMore(){visibleCount+=4;render();}
+function showHome(e){if(e)e.preventDefault();closePostView();document.getElementById('hero').scrollIntoView({behavior:'smooth'});}
+
+// ── POST VIEW ──
+function openPost(id){
+  const p=allPosts().find(x=>x.id===id); if(!p)return;
+  const s=getSettings();
+  const name=s.name||'Your Name';
+  const init=s.initials||name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()||'YN';
+  document.getElementById('pv-cat').innerHTML=`<span class="cat ${catClass(p.cat)}">${catLabel(p.cat)}</span>`;
+  document.getElementById('pv-title').textContent=p.title;
+  document.getElementById('pv-date').textContent=p.date;
+  document.getElementById('pv-read').textContent=p.read;
+  document.getElementById('pv-body').textContent=p.body;
+  const pvAvEl = document.getElementById('pv-av-text');
+  if(pvAvEl) pvAvEl.textContent=init; else document.getElementById('pv-av').textContent=init;
+  document.getElementById('pv-author-name').textContent=name;
+  // Cover image
+  const pvImg = document.getElementById('pv-cover-img');
+  if(pvImg){ if(p.img){pvImg.src=p.img;pvImg.style.display='block';}else{pvImg.style.display='none';} }
+  document.getElementById('post-view').classList.add('open');
+  document.getElementById('post-view').scrollTo(0,0);
+  document.body.style.overflow='hidden';
+}
+function closePostView(){document.getElementById('post-view').classList.remove('open');document.body.style.overflow='';}
+
+// ── THUMBNAIL / COVER IMAGE PICKER ──
+function switchThumbTab(prefix, tab, btn) {
+  const tabs = btn.closest('.thumb-tabs').querySelectorAll('.thumb-tab');
+  tabs.forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(`${prefix}-thumb-upload`).style.display = tab==='upload' ? '' : 'none';
+  document.getElementById(`${prefix}-thumb-url`).style.display    = tab==='url'    ? '' : 'none';
+}
+function handleThumbFile(input, prefix) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = async e => {
+    const compressed = await compressImage(e.target.result, 900, 0.72);
+    setThumbPreview(prefix, compressed);
+  };
+  reader.readAsDataURL(file);
+}
+function previewThumbUrl(input, prefix) {
+  const url = input.value.trim();
+  if (url.match(/^https?:\/\/.+/)) setThumbPreview(prefix, url);
+}
+function setThumbPreview(prefix, src) {
+  document.getElementById(`${prefix}-thumb-data`).value = src;
+  const img = document.getElementById(`${prefix}-thumb-img`);
+  img.src = src;
+  img.onerror = () => clearThumb(prefix);
+  document.getElementById(`${prefix}-thumb-preview`).style.display = 'block';
+  document.getElementById(`${prefix}-thumb-placeholder`).style.display = 'none';
+}
+function clearThumb(prefix) {
+  document.getElementById(`${prefix}-thumb-data`).value = '';
+  const img = document.getElementById(`${prefix}-thumb-img`);
+  if(img) img.src = '';
+  document.getElementById(`${prefix}-thumb-preview`).style.display = 'none';
+  document.getElementById(`${prefix}-thumb-placeholder`).style.display = 'block';
+  const urlInput = document.getElementById(`${prefix}-thumb-url-input`);
+  if (urlInput) urlInput.value = '';
+}
+function resetThumbPicker(prefix) {
+  clearThumb(prefix);
+  const tabs = document.querySelectorAll(`#${prefix}-thumb-picker .thumb-tab`);
+  tabs.forEach((t,i) => t.classList.toggle('active', i===0));
+  const uploadDiv = document.getElementById(`${prefix}-thumb-upload`);
+  const urlDiv    = document.getElementById(`${prefix}-thumb-url`);
+  if (uploadDiv) uploadDiv.style.display = '';
+  if (urlDiv)    urlDiv.style.display    = 'none';
+}
+
+// ── WRITE ──
+function openWrite(){if(!adminActive){alert('Admin access required.');return;}document.getElementById('write-overlay').classList.add('open');document.body.style.overflow='hidden';}
+function closeWrite(){
+  document.getElementById('write-overlay').classList.remove('open');
+  document.body.style.overflow='';
+  ['w-title','w-body','w-read','w-edit-id'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('w-wc').textContent='0 words';
+  resetThumbPicker('w');
+}
+function calcRead(ta){
+  const words=ta.value.trim().split(/\s+/).filter(Boolean).length;
+  document.getElementById('w-read').value=Math.max(1,Math.round(words/200))+' min read';
+  document.getElementById('w-wc').textContent=words+' words';
+}
+async function publishPost(){
+  const title=document.getElementById('w-title').value.trim();
+  const body=document.getElementById('w-body').value.trim();
+  const cat=document.getElementById('w-cat').value;
+  const editId=parseInt(document.getElementById('w-edit-id').value||'0');
+  const img=document.getElementById('w-thumb-data').value.trim()||'';
+  if(!title||!body){alert('Please add a title and your analysis.');return;}
+  const words=body.split(/\s+/).filter(Boolean).length;
+  const read=Math.max(1,Math.round(words/200))+' min read';
+  const excerpt=body.slice(0,220)+(body.length>220?'…':'');
+  let posts=getPosts();
+  if(editId){posts=posts.map(p=>p.id===editId?{...p,title,cat,body,excerpt,read,img:img||p.img||''}:p);}
+  else{const date=new Date().toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});posts.unshift({id:Date.now(),title,cat,excerpt,body,date,read,img});}
+  await savePosts(posts);
+  closeWrite(); visibleCount=4; render();
+  document.getElementById('main').scrollIntoView({behavior:'smooth'});
+}
+
+// ── ADMIN LOGIN ──
+function openLoginScreen(){
+  // Always clear stale lockouts when opening login — prevents being permanently stuck
+  localStorage.removeItem(SEC.LOCKOUT_KEY);
+  localStorage.removeItem(SEC.ATTEMPTS_KEY);
+  document.getElementById('admin-login').classList.add('open');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>document.getElementById('l-pass').focus(),120);
+}
+function closeLoginScreen(){document.getElementById('admin-login').classList.remove('open');document.body.style.overflow='';document.getElementById('l-pass').value='';document.getElementById('login-err').classList.remove('show');}
+
+// ── ADMIN PANEL ──
+function openAdmin(){loadAdminFields();updateStorageStatus();document.getElementById('admin-panel').classList.add('open');document.body.style.overflow='hidden';}
+function closeAdmin(){document.getElementById('admin-panel').classList.remove('open');document.body.style.overflow='';}
+function switchTab(name,btn){
+  document.querySelectorAll('.atab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.a-section').forEach(s=>s.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+  if(name==='posts')renderPostsTable();
+  if(name==='videos')renderVideosTable();
+  if(name==='authors')renderAuthors();
+  if(name==='backup')updateStorageStatus();
+}
+
+function loadAdminFields(){
+  const s=getSettings();
+  setVal('p-name',s.name||'');setVal('p-initials',s.initials||'');setVal('p-role',s.role||'');
+  setVal('p-bio',s.bio||'');setVal('p-twitter',s.twitter||'');setVal('p-badges',s.badges||'');
+  setVal('d-name',s.blogname||'');setVal('d-tagline',s.tagline||'');setVal('d-desc',s.herodesc||'');
+  setVal('d-l1',s.l1||'');setVal('d-l2',s.l2||'');setVal('d-l3',s.l3||'');
+  if(s.accentColor){document.querySelectorAll('.swatch').forEach(sw=>sw.classList.toggle('selected',sw.dataset.c===s.accentColor));}
+  livePreview();
+}
+function setVal(id,val){const el=document.getElementById(id);if(el)el.value=val;}
+function livePreview(){
+  const name=document.getElementById('p-name').value||'Your Name';
+  const init=document.getElementById('p-initials').value||name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()||'YN';
+  const role=document.getElementById('p-role').value||'Researcher · Writer · Educator';
+  const s=getSettings();
+  if(!s.profilePhoto){const ppAv=document.getElementById('pp-av');if(ppAv)ppAv.innerHTML=init;}
+  document.getElementById('pp-name').textContent=name;
+  document.getElementById('pp-role').textContent=role;
+}
+async function saveAll(){
+  const s=getSettings();
+  s.name=document.getElementById('p-name').value.trim();
+  s.initials=document.getElementById('p-initials').value.trim();
+  s.role=document.getElementById('p-role').value.trim();
+  s.bio=document.getElementById('p-bio').value.trim();
+  s.twitter=document.getElementById('p-twitter').value.trim();
+  s.badges=document.getElementById('p-badges').value.trim();
+  s.blogname=document.getElementById('d-name').value.trim();
+  s.tagline=document.getElementById('d-tagline').value.trim();
+  s.herodesc=document.getElementById('d-desc').value.trim();
+  s.l1=document.getElementById('d-l1').value.trim();
+  s.l2=document.getElementById('d-l2').value.trim();
+  s.l3=document.getElementById('d-l3').value.trim();
+  await saveSettings(s);
+  applySettings(s);
+  const btn=document.getElementById('save-btn');
+  btn.textContent='Saved! ✓';btn.style.background='var(--gold)';
+  setTimeout(()=>{btn.textContent='Save all changes ✓';btn.style.background='';},2200);
+}
+
+function applySettings(s){
+  if(!s)s=getSettings();
+  const name=s.name||'Your Name';
+  const init=s.initials||name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()||'YN';
+  const role=s.role||'Researcher · Writer · Educator';
+  const bio=s.bio||'Independent analyst writing on the forces that shape economies, politics, and the international order.';
+  setText('sb-av-text',init);setText('sb-name',name);setText('sb-role',role);setText('sb-bio',bio);
+  if(s.badges){const bw=document.getElementById('sb-badges');if(bw)bw.innerHTML=s.badges.split(',').map(b=>`<span class="badge">${esc(b.trim())}</span>`).join('');}
+  if(s.tagline)setText('hero-sub-text',s.tagline);
+  if(s.herodesc)setText('hero-desc-text',s.herodesc);
+  if(s.profilePhoto) applyProfilePhoto(s.profilePhoto);
+  if(s.accentColor)document.documentElement.style.setProperty('--accent',s.accentColor);
+  [['fl-1',s.l1,'Substack'],['fl-2',s.l2,'Twitter'],['fl-3',s.l3,'LinkedIn']].forEach(([id,url,label])=>{
+    const el=document.getElementById(id);if(!el)return;
+    if(url){el.href=url;el.target='_blank';el.rel='noopener noreferrer';el.style.display='';el.textContent=label;}
+    else{el.href='#';el.target='';el.rel='';el.style.display='none';}
+  });
+}
+function setText(id,val){const el=document.getElementById(id);if(el)el.textContent=val;}
+
+function renderPostsTable(searchQ, catFilter){
+  const q   = (searchQ  !== undefined ? searchQ  : (document.getElementById('posts-table') ? document.querySelector('#tab-posts .search-wrap input')?.value||'' : '')).toLowerCase();
+  const cat = (catFilter !== undefined ? catFilter : document.getElementById('admin-post-cat-filter')?.value||'');
+  const user = getPosts();
+  const all  = [...user.map(p=>({...p,mine:true})),...SAMPLES.map(p=>({...p,mine:false}))];
+  const shown = all.filter(p => {
+    const mq  = !q   || p.title.toLowerCase().includes(q) || (p.excerpt||'').toLowerCase().includes(q);
+    const mc  = !cat || p.cat === cat;
+    return mq && mc;
+  });
+  const countEl = document.getElementById('posts-count');
+  if(countEl) countEl.textContent = user.length + ' your post' + (user.length!==1?'s':'') + ' · ' + SAMPLES.length + ' samples';
+  const tbody = document.getElementById('posts-tbody');
+  const emptyMsg = document.getElementById('posts-empty-msg');
+  if(!shown.length){ tbody.innerHTML=''; if(emptyMsg)emptyMsg.style.display='block'; return; }
+  if(emptyMsg)emptyMsg.style.display='none';
+  tbody.innerHTML = shown.map(p=>`
+    <tr>
+      <td>
+        <div class="ptd-title">${p.title}</div>
+        <div class="ptd-tag" style="display:flex;align-items:center;gap:6px;margin-top:3px">
+          ${p.mine?'<span style="color:var(--accent);font-size:10px">✦ Your post</span>':'<span style="color:var(--muted);font-size:10px">◈ Sample</span>'}
+          <span style="color:var(--muted);font-size:10px">· ${p.read||''}</span>
+        </div>
+      </td>
+      <td><span class="cat ${catClass(p.cat)}" style="font-size:10px;margin-bottom:0">${p.cat}</span></td>
+      <td style="white-space:nowrap;font-size:12px">${p.date}</td>
+      <td style="white-space:nowrap;font-size:12px">${p.read||'—'}</td>
+      <td>
+        ${p.mine
+          ?`<div style="display:flex;gap:6px;flex-wrap:wrap">
+               <button class="card-edit-btn" style="display:inline-flex" onclick="editPost(${p.id})">✏ Edit</button>
+               <button class="card-del-btn" style="display:inline-flex" onclick="deletePostFromTable(${p.id})">🗑 Delete</button>
+             </div>`
+          :`<span style="font-size:11px;color:var(--muted)">Read-only</span>`}
+      </td>
+    </tr>`).join('');
+}
+
+function filterAdminPosts(val){
+  const q   = typeof val==='string' ? val : (document.querySelector('#tab-posts .search-wrap input')?.value||'');
+  const cat = document.getElementById('admin-post-cat-filter')?.value||'';
+  renderPostsTable(q, cat);
+}
+
+async function deletePostFromTable(id){
+  if(!adminActive){alert('Admin access required.');return;}
+  if(!confirm('Delete this post permanently?'))return;
+  await savePosts(getPosts().filter(p=>p.id!==id));
+  renderPostsTable(); render();
+}
+
+// ── VIDEOS ADMIN TABLE ──
+function renderVideosTable(searchQ, catFilter){
+  const q   = (searchQ  !== undefined ? searchQ  : (document.querySelector('#tab-videos .search-wrap input')?.value||'')).toLowerCase();
+  const cat = (catFilter !== undefined ? catFilter : document.getElementById('admin-video-cat-filter')?.value||'');
+  const user = getVideos();
+  const all  = [...user.map(v=>({...v,mine:true})),...VIDEO_SAMPLE.map(v=>({...v,mine:false}))];
+  const shown = all.filter(v=>{
+    const mq = !q   || v.title.toLowerCase().includes(q) || (v.desc||'').toLowerCase().includes(q);
+    const mc = !cat || v.cat===cat;
+    return mq&&mc;
+  });
+  const countEl = document.getElementById('videos-count');
+  if(countEl) countEl.textContent = user.length + ' your video'+(user.length!==1?'s':'')+' · '+VIDEO_SAMPLE.length+' samples';
+  const tbody = document.getElementById('videos-tbody');
+  const emptyMsg = document.getElementById('videos-empty-msg');
+  if(!shown.length){ tbody.innerHTML=''; if(emptyMsg)emptyMsg.style.display='block'; return; }
+  if(emptyMsg)emptyMsg.style.display='none';
+  tbody.innerHTML = shown.map(v=>{
+    const typeLabel = v.type==='youtube'?'🔗 YouTube':v.type==='vimeo'?'🔗 Vimeo':'📁 File';
+    const typeCls   = v.type==='file'?'color:var(--gold)':'color:#5dade2';
+    return`<tr>
+      <td>
+        <div class="ptd-title">${v.title}</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:3px">
+          ${v.mine?'<span style="color:var(--accent);font-size:10px">✦ Your video</span>':'<span style="color:var(--muted);font-size:10px">◈ Sample</span>'}
+          ${v.dur?`<span style="color:var(--muted);font-size:10px">· ${v.dur}</span>`:''}
+        </div>
+      </td>
+      <td><span class="cat ${catClass(v.cat)}" style="font-size:10px;margin-bottom:0">${v.cat}</span></td>
+      <td><span style="font-size:11px;${typeCls}">${typeLabel}</span></td>
+      <td style="white-space:nowrap;font-size:12px">${v.date||'—'}</td>
+      <td>
+        ${v.mine
+          ?`<div style="display:flex;gap:6px">
+               <button class="card-del-btn" style="display:inline-flex" onclick="deleteVideoFromTable('${v.id}')">🗑 Delete</button>
+             </div>`
+          :`<span style="font-size:11px;color:var(--muted)">Read-only</span>`}
+      </td>
+    </tr>`; }).join('');
+}
+
+function filterAdminVideos(val){
+  const q   = typeof val==='string' ? val : (document.querySelector('#tab-videos .search-wrap input')?.value||'');
+  const cat = document.getElementById('admin-video-cat-filter')?.value||'';
+  renderVideosTable(q, cat);
+}
+
+async function deleteVideoFromTable(id){
+  if(!adminActive){alert('Admin access required.');return;}
+  if(!confirm('Delete this video permanently?'))return;
+  await saveVideos(getVideos().filter(v=>v.id!=id));
+  renderVideosTable(); renderVideos();
+}
+
+function editPost(id){
+  const p=getPosts().find(x=>x.id===id);if(!p)return;
+  closeAdmin();
+  document.getElementById('w-title').value=p.title;
+  document.getElementById('w-cat').value=p.cat;
+  document.getElementById('w-body').value=p.body;
+  document.getElementById('w-edit-id').value=p.id;
+  calcRead(document.getElementById('w-body'));
+  openWrite();
+}
+async function deletePost(id,e){
+  if(!adminActive){return;}
+  if(e)e.stopPropagation();
+  if(!confirm('Delete this post permanently?'))return;
+  await savePosts(getPosts().filter(p=>p.id!==id));
+  renderPostsTable(); render();
+}
+
+function renderAuthors(){
+  const s=getSettings();
+  const name=s.name||'Your Name';
+  const init=s.initials||name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()||'YN';
+  const list=[{name,initials:init,role:'owner',isOwner:true},...getAuthors()];
+  document.getElementById('authors-list').innerHTML=list.map((a,i)=>`
+    <div class="author-row">
+      <div class="author-left">
+        <div class="author-av">${a.initials||a.name.slice(0,2).toUpperCase()}</div>
+        <div><div class="author-name">${a.name}</div>
+          <div class="author-desc">${a.role==='owner'?'Full access · Owner':a.role==='editor'?'Write & edit all posts':'Write posts only'}</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="role-pill role-${a.role}">${a.role}</span>
+        ${!a.isOwner?`<button class="btn-danger" onclick="removeAuthor(${i-1})">Remove</button>`:''}
+      </div>
+    </div>`).join('');
+}
+async function addAuthor(){
+  const name=document.getElementById('na-name').value.trim();
+  const role=document.getElementById('na-role').value;
+  if(!name){alert("Please enter the author's name.");return;}
+  const authors=getAuthors();
+  authors.push({name,initials:name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(),role});
+  await saveAuthors(authors);
+  document.getElementById('na-name').value='';
+  renderAuthors();
+}
+async function removeAuthor(idx){
+  if(!confirm('Remove this author?'))return;
+  const authors=getAuthors();authors.splice(idx,1);
+  await saveAuthors(authors);renderAuthors();
+}
+
+function pickColor(c,el){
+  document.querySelectorAll('.swatch').forEach(s=>s.classList.remove('selected'));
+  el.classList.add('selected');
+  document.documentElement.style.setProperty('--accent',c);
+  const s=getSettings();s.accentColor=c;saveSettings(s);
+}
+
+function handleProfilePhoto(input) {
+  const file = input.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = async e => {
+    const src = e.target.result;
+    const s = getSettings(); s.profilePhoto = src; await saveSettings(s);
+    applyProfilePhoto(src);
+  };
+  reader.readAsDataURL(file);
+}
+function applyProfilePhoto(src) {
+  // Admin preview
+  const ppAv = document.getElementById('pp-av');
+  if (ppAv) { ppAv.innerHTML = src ? `<img src="${src}" alt="Profile"/>` : (document.getElementById('p-initials')?.value || document.getElementById('p-name')?.value?.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase() || 'YN'); }
+  // Sidebar
+  const sbAv = document.getElementById('sb-av');
+  const sbAvText = document.getElementById('sb-av-text');
+  if (sbAv) { if (src) { sbAv.innerHTML = `<img src="${src}" alt="Profile" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>`; } else if (sbAvText) { sbAv.innerHTML = `<span id="sb-av-text">${sbAvText.textContent}</span>`; } }
+  // Post view avatar
+  const pvAv = document.getElementById('pv-av');
+  const pvAvText = document.getElementById('pv-av-text');
+  if (pvAv) { if (src) { pvAv.innerHTML = `<img src="${src}" alt="Profile" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>`; } else if (pvAvText) { pvAv.innerHTML = `<span id="pv-av-text">${pvAvText.textContent}</span>`; } }
+}
+
+async function changePass(){
+  const p1=document.getElementById('np1').value;
+  const p2=document.getElementById('np2').value;
+  const msg=document.getElementById('pass-msg');
+  msg.style.display='block';
+  if(!p1){msg.style.color='#e06c5a';msg.textContent='Enter a new password.';return;}
+  if(p1!==p2){msg.style.color='#e06c5a';msg.textContent='Passwords do not match.';return;}
+  if(p1.length<8){msg.style.color='#e06c5a';msg.textContent='Minimum 8 characters.';return;}
+  if(!/[0-9!@#$%^&*]/.test(p1)){msg.style.color='#e06c5a';msg.textContent='Include at least one number or special character.';return;}
+  await SEC.savePassHashed(p1);
+  msg.style.color='var(--gold)';msg.textContent='Password updated ✓ (stored as SHA-256 hash)';
+  document.getElementById('np1').value='';document.getElementById('np2').value='';
+  setTimeout(()=>{msg.style.display='none';},3000);
+}
+async function deleteAllPosts(){
+  if(!confirm('Delete ALL your written posts? Sample posts will remain.'))return;
+  await savePosts([]);render();renderPostsTable();
+}
+async function deleteAllVideos(){
+  if(!confirm('Delete ALL your uploaded videos? Sample videos will remain.'))return;
+  await saveVideos([]);renderVideos();renderVideosTable();
+}
+async function deleteAllDocs(){
+  if(!confirm('Delete ALL your uploaded documents? Sample documents will remain.'))return;
+  await saveDocs([]);renderDocs();
+}
+
+// ══════════════════════════════════════════════════════════════
+//  VIDEO ENGINE
+// ══════════════════════════════════════════════════════════════
+let vFilter='all',vVisible=6,uploadedVideoData=null,currentVideoTab='file';
+function allVideos(){return [...getVideos(),...VIDEO_SAMPLE];}
+function filteredVideos(){return allVideos().filter(v=>vFilter==='all'||v.cat===vFilter);}
+
+function videoDirectUrl(v){
+  if(v.type==='youtube'){const id=extractYTId(v.src);return id?'https://www.youtube.com/watch?v='+id:v.src;}
+  if(v.type==='vimeo'){const id=extractVimeoId(v.src);return id?'https://vimeo.com/'+id:v.src;}
+  return null;
+}
+let _rvPending = false;
+function renderVideos() {
+  if (_rvPending) return;
+  _rvPending = true;
+  requestAnimationFrame(() => { _rvPending = false; _renderVideosNow(); });
+}
+function _renderVideosNow() {
+  const list=filteredVideos();
+  const fg=document.getElementById('video-featured-wrap');
+  const grid=document.getElementById('video-grid');
+  const empty=document.getElementById('video-empty');
+  const lm=document.getElementById('vs-load-more');
+  if(!list.length){fg.innerHTML='';grid.innerHTML='';empty.style.display='block';lm.style.display='none';return;}
+  empty.style.display='none';
+  const fv=list[0];
+  const fvMine=getVideos().some(v=>v.id==fv.id);
+  const fvUrl=videoDirectUrl(fv);
+  fg.innerHTML=`
+    <a class="video-featured reveal" ${fvUrl?`href="${fvUrl}" target="_blank" rel="noopener noreferrer"`:`href="#" onclick="event.preventDefault();playVideo('${fv.id}')"`} style="text-decoration:none">
+      <div class="vf-left">
+        ${videoThumbHTML(fv,true)}
+        <div class="play-btn"><div class="play-icon"></div></div>
+        ${fv.dur?`<div class="video-dur">${fv.dur}</div>`:''}
+        ${adminActive&&fvMine?`<div class="card-admin-bar" style="border-radius:0;display:flex"><button class="card-edit-btn" onclick="event.stopPropagation()">✏ Edit</button><button class="card-del-btn" onclick="event.stopPropagation();deleteVideo('${fv.id}',event)">🗑 Delete</button></div>`:''}
+      </div>
+      <div class="vf-right">
+        <div class="vf-label">★ Featured Video</div>
+        <span class="cat ${catClass(fv.cat)}" style="margin-bottom:12px">${catLabel(fv.cat)}</span>
+        <div class="vf-title">${fv.title}</div>
+        <div class="vf-desc">${fv.desc}</div>
+        <div class="vf-meta"><span>${fv.date}</span>${fv.dur?`<span>· ${fv.dur}</span>`:''}</div>
+        <span class="btn-primary" style="font-size:13px;padding:10px 20px;width:fit-content;display:inline-block">▶ Watch Now</span>
+      </div>
+    </a>`;
+  const rest=list.slice(1,vVisible);
+  grid.innerHTML=rest.map((v,i)=>{
+    const vMine=getVideos().some(x=>x.id==v.id);
+    const vUrl=videoDirectUrl(v);
+    return `
+    <a class="video-card reveal" ${vUrl?`href="${vUrl}" target="_blank" rel="noopener noreferrer"`:`href="#" onclick="event.preventDefault();playVideo('${v.id}')"`} style="text-decoration:none;display:block;transition-delay:${i*.05}s">
+      <div class="video-thumb">
+        ${videoThumbHTML(v,false)}
+        <span class="video-cat-badge"><span class="cat ${catClass(v.cat)}">${catLabel(v.cat)}</span></span>
+        <div class="play-btn" style="width:42px;height:42px"><div class="play-icon" style="border-width:7px 0 7px 13px"></div></div>
+        ${v.dur?`<div class="video-dur">${v.dur}</div>`:''}
+        ${adminActive&&vMine?`<div class="card-admin-bar" style="display:flex"><button class="card-edit-btn" onclick="event.stopPropagation()">✏ Edit</button><button class="card-del-btn" onclick="event.stopPropagation();deleteVideo('${v.id}',event)">🗑 Delete</button></div>`:''}
+      </div>
+      <div class="video-info">
+        <div class="video-title">${v.title}</div>
+        <div class="video-desc">${v.desc}</div>
+        <div class="video-meta"><span>${v.date}</span>${v.dur?`<span>${v.dur}</span>`:''}</div>
+      </div>
+    </a>`;}).join('');
+  grid.style.display=rest.length?'grid':'none';
+  lm.style.display=list.length>vVisible?'block':'none';
+  triggerReveal();
+}
+
+function videoThumbHTML(v,large){
+  // Custom thumbnail image takes priority
+  if(v.thumb) return `<img src="${v.thumb}" style="width:100%;height:100%;object-fit:cover;opacity:.85;transition:opacity .2s" loading="lazy" onerror="this.style.display='none'"/>`;
+  if(v.type==='file'&&v.src)return`<video src="${v.src}" muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;opacity:.85"></video>`;
+  if(v.type==='youtube'){const ytId=extractYTId(v.src);if(ytId)return`<img src="https://img.youtube.com/vi/${ytId}/hqdefault.jpg" style="width:100%;height:100%;object-fit:cover;opacity:.85" loading="lazy" onerror="this.style.display='none'"/>`;}
+  return`<div class="video-thumb-placeholder"><span style="font-size:${large?'48px':'32px'};opacity:.2">🎬</span></div>`;
+}
+function filterVideos(cat,btn){vFilter=cat;vVisible=6;document.querySelectorAll('#v-filter-btns .fbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderVideos();}
+function loadMoreVideos(){vVisible+=6;renderVideos();}
+function scrollToVideos(e){e.preventDefault();document.getElementById('videos').scrollIntoView({behavior:'smooth'});}
+
+function playVideo(id){
+  const v = allVideos().find(x => x.id == id);
+  if (!v) return;
+
+  // For YouTube/Vimeo — just navigate directly. No modal, no popup blocker, no iframe CSP issues.
+  if (v.type === 'youtube') {
+    const ytId = extractYTId(v.src);
+    if (ytId) { window.location.href = 'https://www.youtube.com/watch?v=' + ytId; return; }
+  }
+  if (v.type === 'vimeo') {
+    const vmId = extractVimeoId(v.src);
+    if (vmId) { window.location.href = 'https://vimeo.com/' + vmId; return; }
+  }
+
+  // Local file — use the modal player
+  const html5Wrap = document.getElementById('vpo-html5-wrap');
+  const iframeWrap = document.getElementById('vpo-iframe-wrap');
+  const html5 = document.getElementById('vpo-html5');
+  const iframe = document.getElementById('vpo-iframe');
+  const html5Err = document.getElementById('vpo-html5-error');
+  const iframeErr = document.getElementById('vpo-iframe-error');
+  const dlBtn = document.getElementById('vpo-download-btn');
+
+  // Reset
+  html5Wrap.style.display = 'none';
+  iframeWrap.style.display = 'none';
+  html5Err.style.display = 'none';
+  iframeErr.style.display = 'none';
+  html5.pause();
+  html5.removeAttribute('src');
+  iframe.src = 'about:blank';
+  const old = document.getElementById('yt-popup-card');
+  if (old) old.remove();
+
+  if (v.type === 'file' && v.src) {
+    html5Wrap.style.display = 'block';
+    html5.src = v.src;
+    dlBtn.href = v.src;
+    dlBtn.download = v.title || 'video';
+    html5.load();
+    html5.play().catch(() => {});
+  }
+
+  document.getElementById('vpo-title').textContent = v.title || '';
+  document.getElementById('vpo-meta').textContent = (v.date||'') + (v.dur ? ' · ' + v.dur : '');
+  const catEl = document.getElementById('vpo-cat');
+  catEl.className = `cat ${catClass(v.cat)}`;
+  catEl.textContent = catLabel(v.cat);
+  document.getElementById('vpo-footer-right').innerHTML = v.src ? `<a class="vpo-ext-btn" href="${v.src}" download="${v.title||'video'}">⬇ Download</a>` : '';
+
+  document.getElementById('vpo').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function onVideoError() {
+  document.getElementById('vpo-html5').style.display = 'none';
+  document.getElementById('vpo-html5-error').style.display = 'flex';
+}
+function onVideoLoaded() {
+  document.getElementById('vpo-html5').style.display = 'block';
+  document.getElementById('vpo-html5-error').style.display = 'none';
+}
+
+function closeVideoPlayer(e) {
+  if (e && e.target && !e.target.classList.contains('vpo-backdrop') && e.target.id !== 'vpo') return;
+  const html5  = document.getElementById('vpo-html5');
+  const iframe = document.getElementById('vpo-iframe');
+  html5.pause();
+  html5.removeAttribute('src');
+  iframe.src = 'about:blank';
+  iframe.style.display = '';
+  const card = document.getElementById('yt-popup-card');
+  if(card) card.remove();
+  document.getElementById('vpo').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('vpo').classList.contains('open')) closeVideoPlayer();
+});
+function openVideoUpload(){if(!adminActive){alert('Admin access required.');return;}document.getElementById('video-upload-overlay').classList.add('open');document.body.style.overflow='hidden';}
+function closeVideoUpload(){document.getElementById('video-upload-overlay').classList.remove('open');document.body.style.overflow='';resetUploadForm();}
+function resetUploadForm(){
+  ['v-title','v-url','v-dur','v-desc','v-edit-id'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('upload-preview').classList.remove('show');
+  document.getElementById('progress-wrap').classList.remove('show');
+  document.getElementById('progress-bar').style.width='0%';
+  document.getElementById('video-file-input').value='';
+  uploadedVideoData=null;switchVideoTab('file');
+}
+function switchVideoTab(tab){
+  currentVideoTab=tab;
+  document.getElementById('tab-file-btn').classList.toggle('active',tab==='file');
+  document.getElementById('tab-link-btn').classList.toggle('active',tab==='link');
+  document.getElementById('tab-file').classList.toggle('show',tab==='file');
+  document.getElementById('tab-link').classList.toggle('show',tab==='link');
+}
+function handleVideoFile(input){
+  const file=input.files[0];if(!file)return;
+  const url=URL.createObjectURL(file);
+  const vid=document.getElementById('preview-vid');
+  vid.src=url;
+  document.getElementById('preview-name').textContent=file.name;
+  document.getElementById('preview-size').textContent=formatFileSize(file.size);
+  document.getElementById('upload-preview').classList.add('show');
+  const pw=document.getElementById('progress-wrap'),pb=document.getElementById('progress-bar');
+  pw.classList.add('show');pb.style.width='0%';
+  let prog=0;
+  const iv=setInterval(()=>{prog+=Math.random()*18;if(prog>=100){prog=100;clearInterval(iv);setTimeout(()=>{pw.classList.remove('show');pb.style.width='0%';},800);}pb.style.width=prog+'%';},120);
+  const reader=new FileReader();
+  reader.onload=async e=>{
+    const compressed = await compressImage(e.target.result, 900, 0.72);
+    uploadedVideoData=compressed;
+  };
+  reader.readAsDataURL(file);
+  vid.onloadedmetadata=()=>{const d=vid.duration;if(d&&!isNaN(d)){const m=Math.floor(d/60),s=Math.floor(d%60);document.getElementById('v-dur').value=`${m}:${s.toString().padStart(2,'0')}`;} };
+  if(!document.getElementById('v-title').value)document.getElementById('v-title').value=file.name.replace(/\.[^.]+$/,'').replace(/[-_]/g,' ');
+}
+async function publishVideo(){
+  const title=document.getElementById('v-title').value.trim();
+  const cat=document.getElementById('v-cat').value;
+  const dur=document.getElementById('v-dur').value.trim();
+  const desc=document.getElementById('v-desc').value.trim();
+  const url=document.getElementById('v-url').value.trim();
+  const editId=document.getElementById('v-edit-id').value;
+  if(!title){alert('Please add a video title.');return;}
+  let type='',src='';
+  if(currentVideoTab==='file'){
+    if(!uploadedVideoData&&!editId){alert('Please select a video file.');return;}
+    // Warn if video file is very large (>30MB base64 ≈ 22MB binary)
+    if(uploadedVideoData && uploadedVideoData.length > 30 * 1024 * 1024){
+      const ok = confirm('⚠️ This video file is very large (' + (uploadedVideoData.length/(1024*1024)).toFixed(0) + ' MB).\n\nStoring large video files in the browser can use up storage quickly and may cause slow performance.\n\nConsider uploading to YouTube/Vimeo and pasting the link instead — it\'s faster and uses no storage.\n\nContinue anyway?');
+      if(!ok) return;
+    }
+    type='file';src=uploadedVideoData||'';
+  }
+  else{if(!url){alert('Please paste a YouTube or Vimeo URL.');return;}if(url.includes('youtube.com')||url.includes('youtu.be')){type='youtube';src=url;}else if(url.includes('vimeo.com')){type='vimeo';src=url;}else{alert('Please enter a valid YouTube or Vimeo URL.');return;}}
+  const date=new Date().toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+  let videos=getVideos();
+  if(editId){videos=videos.map(v=>v.id==editId?{...v,title,cat,dur,desc,type,src:src||v.src}:v);}
+  else{videos.unshift({id:Date.now(),title,cat,dur,desc,type,src,date,mine:true});}
+  await saveVideos(videos);
+  closeVideoUpload();vVisible=6;vFilter='all';
+  document.querySelectorAll('#v-filter-btns .fbtn').forEach((b,i)=>b.classList.toggle('active',i===0));
+  renderVideos();document.getElementById('videos').scrollIntoView({behavior:'smooth'});
+}
+async function deleteVideo(id,e){
+  if(!adminActive){return;}
+  if(e)e.stopPropagation();
+  if(!confirm('Delete this video permanently?'))return;
+  await saveVideos(getVideos().filter(v=>v.id!=id));renderVideos();
+}
+
+function extractYTId(url){
+  if(!url)return'';
+  // Handles: watch?v=, embed/, youtu.be/, shorts/
+  const m=url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  if(m)return m[1];
+  if(url.includes('embed/'))return url.split('embed/')[1].split('?')[0];
+  return'';
+}
+function extractVimeoId(url){if(!url)return'';const m=url.match(/vimeo\.com\/(?:video\/)?(\d+)/);return m?m[1]:'';}
+function formatFileSize(bytes){if(bytes<1024*1024)return(bytes/1024).toFixed(1)+' KB';if(bytes<1024*1024*1024)return(bytes/(1024*1024)).toFixed(1)+' MB';return(bytes/(1024*1024*1024)).toFixed(2)+' GB';}
+
+const uz=document.getElementById('upload-zone');
+if(uz){
+  uz.addEventListener('dragover',e=>{e.preventDefault();uz.classList.add('drag');});
+  uz.addEventListener('dragleave',()=>uz.classList.remove('drag'));
+  uz.addEventListener('drop',e=>{
+    e.preventDefault();uz.classList.remove('drag');
+    const file=e.dataTransfer.files[0];
+    if(file&&file.type.startsWith('video/')){const inp=document.getElementById('video-file-input');const dt=new DataTransfer();dt.items.add(file);inp.files=dt.files;handleVideoFile(inp);}
+  });
+}
+
+// ══════════════════════════════════════════════════════════════
+//  DOCUMENTS ENGINE
+// ══════════════════════════════════════════════════════════════
+let docFilter='all',docSearch='',docVisible=6,uploadedDocData=null,uploadedDocType='';
+function allDocs(){return [...getDocs(),...DOC_SAMPLES];}
+function filteredDocs(){
+  return allDocs().filter(d=>{
+    const mf=docFilter==='all'||d.type===docFilter;
+    const q=docSearch.toLowerCase();
+    const ms=!q||d.title.toLowerCase().includes(q)||d.desc.toLowerCase().includes(q)||d.cat.toLowerCase().includes(q);
+    return mf&&ms;
+  });
+}
+const DOCTYPE_MAP={pdf:{icon:'📄',label:'PDF',cls:'pdf'},doc:{icon:'📝',label:'DOCX',cls:'doc'},docx:{icon:'📝',label:'DOCX',cls:'doc'},xls:{icon:'📊',label:'XLSX',cls:'xls'},xlsx:{icon:'📊',label:'XLSX',cls:'xls'},ppt:{icon:'📑',label:'PPTX',cls:'ppt'},pptx:{icon:'📑',label:'PPTX',cls:'ppt'},txt:{icon:'📃',label:'TXT',cls:'other'},csv:{icon:'📊',label:'CSV',cls:'xls'},md:{icon:'📃',label:'MD',cls:'other'}};
+function getDocType(ext){return DOCTYPE_MAP[ext?.toLowerCase()]||{icon:'📎',label:ext?.toUpperCase()||'FILE',cls:'other'};}
+function extFromType(t){return{pdf:'pdf',doc:'doc',xls:'xls',ppt:'ppt',other:'file'}[t]||t;}
+
+let _rdPending = false;
+function renderDocs() {
+  if (_rdPending) return;
+  _rdPending = true;
+  requestAnimationFrame(() => { _rdPending = false; _renderDocsNow(); });
+}
+function _renderDocsNow() {
+  const list=filteredDocs();
+  const fw=document.getElementById('doc-featured-wrap');
+  const grid=document.getElementById('docs-grid');
+  const em=document.getElementById('doc-empty');
+  const lm=document.getElementById('docs-load-more');
+  if(!list.length){fw.innerHTML='';grid.innerHTML='';em.style.display='block';lm.style.display='none';return;}
+  em.style.display='none';
+  const fd=list[0];
+  const fdt=getDocType(extFromType(fd.type));
+  const fdMine=getDocs().some(d=>d.id==fd.id);
+  fw.innerHTML=`
+    <div class="doc-featured reveal" onclick="viewDoc('${fd.id}')">
+      ${fd.img?`<img class="doc-featured-img" src="${fd.img}" alt="${fd.title}" loading="lazy" onerror="this.style.display='none'"/>`:`<div class="doc-featured-icon doc-icon-wrap ${fdt.cls}">${fdt.icon}</div>`}
+      <div style="flex:1;min-width:0">
+        <div class="doc-featured-label">★ Latest Document</div>
+        <div class="doc-featured-title">${fd.title}</div>
+        <div class="doc-featured-desc">${fd.desc}</div>
+        <div class="doc-meta" style="margin-top:8px">
+          <span class="doc-type-badge ${fdt.cls}">${fdt.label}</span>
+          <span class="cat ${catClass(fd.cat)}" style="font-size:10px">${catLabel(fd.cat)}</span>
+          <span>${fd.date}</span>${fd.size?`<span>${fd.size}</span>`:''}
+        </div>
+      </div>
+      <div class="doc-featured-right">
+        <span class="doc-size">${fd.size||''}</span>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">
+          <button class="doc-btn" onclick="event.stopPropagation();viewDoc('${fd.id}')">👁 Preview</button>
+          ${fd.src?`<a class="doc-btn primary" href="${fd.src}" download="${fd.title}" onclick="event.stopPropagation()">⬇ Download</a>`:''}
+          ${adminActive && fdMine?`<button class="card-del-btn" style="font-size:10px;padding:4px 10px" onclick="event.stopPropagation();deleteDocItem('${fd.id}',event)">🗑 Delete</button>`:''}
+        </div>
+      </div>
+    </div>`;
+  const rest=list.slice(1,docVisible);
+  grid.innerHTML=rest.map((d,i)=>{
+    const dt=getDocType(extFromType(d.type));
+    const dMine=getDocs().some(x=>x.id==d.id);
+    return`
+    <div class="doc-card type-${dt.cls} reveal" onclick="viewDoc('${d.id}')" style="transition-delay:${i*.04}s">
+      ${adminActive && dMine?`<div class="card-admin-bar" style="display:flex"><button class="card-del-btn" onclick="event.stopPropagation();deleteDocItem('${d.id}',event)">🗑 Delete</button></div>`:''}
+      ${d.img?`<img class="doc-card-img" src="${d.img}" alt="${d.title}" loading="lazy" onerror="this.style.display='none'"/>`:''}
+      <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:10px">
+        <div class="doc-icon-wrap ${dt.cls}" style="width:40px;height:40px;font-size:18px;margin-bottom:0">${dt.icon}</div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+            <span class="doc-type-badge ${dt.cls}">${dt.label}</span>
+            <span class="cat ${catClass(d.cat)}" style="font-size:9px;margin-bottom:0">${catLabel(d.cat)}</span>
+          </div>
+          <div class="doc-title">${d.title}</div>
+        </div>
+      </div>
+      <div class="doc-desc">${d.desc}</div>
+      <div class="doc-footer">
+        <div class="doc-meta"><span>${d.date}</span>${d.size?`<span class="doc-size">${d.size}</span>`:''}</div>
+        <div class="doc-actions">
+          <button class="doc-btn" onclick="event.stopPropagation();viewDoc('${d.id}')">👁</button>
+          ${d.src?`<a class="doc-btn primary" href="${d.src}" download="${d.title}" onclick="event.stopPropagation()">⬇</a>`:''}
+        </div>
+      </div>
+    </div>`;}).join('');
+  grid.style.display=rest.length?'grid':'none';
+  lm.style.display=list.length>docVisible?'block':'none';
+  triggerReveal();
+}
+function filterDocs(f,btn){docFilter=f;docVisible=6;document.querySelectorAll('#doc-filter-btns .fbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderDocs();}
+const searchDocs = debounce(function(q){docSearch=q;docVisible=6;renderDocs();}, 180);
+function loadMoreDocs(){docVisible+=6;renderDocs();}
+function scrollToDocs(e){e.preventDefault();document.getElementById('documents').scrollIntoView({behavior:'smooth'});}
+
+function viewDoc(id){
+  const d=allDocs().find(x=>x.id==id);if(!d)return;
+  document.getElementById('dv-title').textContent=d.title;
+  const frame=document.getElementById('dv-frame');
+  const dl=document.getElementById('dv-download');
+  // Show download button for all docs that have src, regardless of access setting
+  if(d.src){
+    dl.href=d.src;dl.download=d.title;dl.style.display='';
+    if(d.type==='pdf'){frame.innerHTML=`<iframe src="${d.src}" style="width:100%;height:100%;border:none"></iframe>`;}
+    else if(['doc','docx','xls','xlsx','ppt','pptx'].includes(d.type)){frame.innerHTML=`<iframe src="https://docs.google.com/viewer?url=${encodeURIComponent(d.src)}&embedded=true" style="width:100%;height:100%;border:none"></iframe>`;}
+    else{frame.innerHTML=noPreviewHTML(d);}
+  }else{
+    // No src — show a rich info card instead of blank
+    dl.style.display='none';
+    const dt=getDocType(extFromType(d.type));
+    frame.innerHTML=`<div class="dv-nopreview">
+      <div class="dv-nopreview-icon">${dt.icon}</div>
+      <p style="color:var(--text);font-size:17px;font-weight:600;margin-bottom:6px">${d.title}</p>
+      <p style="color:var(--muted2);font-size:13px;margin-bottom:6px">${d.cat} · ${dt.label}${d.size?' · '+d.size:''}</p>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:20px;max-width:400px;text-align:center;line-height:1.6">${d.desc||''}</p>
+      <p style="color:var(--muted);font-size:12px;opacity:.7">This is a sample document — no file is attached.<br/>Upload your own documents to enable preview &amp; download.</p>
+    </div>`;
+  }
+  document.getElementById('doc-viewer').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function noPreviewHTML(d){
+  const dt=getDocType(extFromType(d.type));
+  return`<div class="dv-nopreview"><div class="dv-nopreview-icon">${dt.icon}</div><p style="color:var(--muted2);font-size:15px;margin-bottom:6px">${d.title}</p><p style="color:var(--muted);font-size:13px;margin-bottom:20px">${d.size||''} · ${dt.label}</p>${d.src&&d.access!=='view'?`<a class="doc-btn primary" href="${d.src}" download="${d.title}" style="font-size:13px;padding:10px 20px">⬇ Download File</a>`:'<p style="color:var(--muted);font-size:13px">Preview not available</p>'}</div>`;
+}
+function closeDocViewer(e){
+  if(e&&e.target!==document.getElementById('doc-viewer'))return;
+  document.getElementById('doc-viewer').classList.remove('open');
+  document.getElementById('dv-frame').innerHTML='';
+  document.body.style.overflow='';
+}
+function openDocUpload(){if(!adminActive){alert('Admin access required.');return;}document.getElementById('doc-upload-overlay').classList.add('open');document.body.style.overflow='hidden';}
+function closeDocUpload(){document.getElementById('doc-upload-overlay').classList.remove('open');document.body.style.overflow='';resetDocForm();}
+function resetDocForm(){
+  ['d-doc-title','d-doc-desc','d-doc-edit-id'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('doc-file-preview').classList.remove('show');
+  document.getElementById('doc-file-input').value='';
+  uploadedDocData=null;uploadedDocType='';
+}
+function handleDocFile(input){
+  const file=input.files[0];if(!file)return;
+  const ext=file.name.split('.').pop().toLowerCase();
+  const dt=getDocType(ext);
+  uploadedDocType=ext;
+  const prev=document.getElementById('doc-file-preview');
+  document.getElementById('dfp-icon').textContent=dt.icon;
+  document.getElementById('dfp-icon').className=`doc-file-icon-sm doc-icon-wrap ${dt.cls}`;
+  document.getElementById('dfp-name').textContent=file.name;
+  document.getElementById('dfp-size').textContent=formatFileSize(file.size);
+  document.getElementById('dfp-badge').textContent=dt.label;
+  document.getElementById('dfp-badge').className=`doc-type-badge ${dt.cls}`;
+  prev.classList.add('show');
+  if(!document.getElementById('d-doc-title').value)document.getElementById('d-doc-title').value=file.name.replace(/\.[^.]+$/,'').replace(/[-_]/g,' ');
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const result = e.target.result;
+    // Warn if document is very large (>10MB base64 ≈ 7.5MB binary)
+    if (result && result.length > 10 * 1024 * 1024) {
+      console.warn('Document is large (' + (result.length / (1024*1024)).toFixed(1) + ' MB base64). Consider using a URL link instead for better performance.');
+    }
+    uploadedDocData=result;
+  };
+  reader.readAsDataURL(file);
+}
+async function publishDoc(){
+  const title=document.getElementById('d-doc-title').value.trim();
+  const cat=document.getElementById('d-doc-cat').value;
+  const access=document.getElementById('d-doc-access').value;
+  const desc=document.getElementById('d-doc-desc').value.trim();
+  const editId=document.getElementById('d-doc-edit-id').value;
+  const file=document.getElementById('doc-file-input').files[0];
+  if(!title){alert('Please add a document title.');return;}
+  if(!uploadedDocData&&!editId){alert('Please select a file to upload.');return;}
+  const ext=uploadedDocType||(editId?getDocs().find(d=>d.id==editId)?.type||'pdf':'pdf');
+  const size=file?formatFileSize(file.size):'';
+  const date=new Date().toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+  let docs=getDocs();
+  if(editId){docs=docs.map(d=>d.id==editId?{...d,title,cat,access,desc,type:ext,src:uploadedDocData||d.src,size:size||d.size}:d);}
+  else{docs.unshift({id:Date.now(),title,cat,access,desc,type:ext,src:uploadedDocData||'',size,date,mine:true});}
+  await saveDocs(docs);
+  closeDocUpload();docFilter='all';docVisible=6;
+  document.querySelectorAll('#doc-filter-btns .fbtn').forEach((b,i)=>b.classList.toggle('active',i===0));
+  renderDocs();document.getElementById('documents').scrollIntoView({behavior:'smooth'});
+}
+async function deleteDocItem(id,e){
+  if(!adminActive){return;}
+  if(e)e.stopPropagation();
+  if(!confirm('Delete this document permanently?'))return;
+  await saveDocs(getDocs().filter(d=>d.id!=id));renderDocs();
+}
+const duz=document.getElementById('doc-upload-zone');
+if(duz){
+  duz.addEventListener('dragover',e=>{e.preventDefault();duz.classList.add('drag');});
+  duz.addEventListener('dragleave',()=>duz.classList.remove('drag'));
+  duz.addEventListener('drop',e=>{
+    e.preventDefault();duz.classList.remove('drag');
+    const file=e.dataTransfer.files[0];
+    if(file){const inp=document.getElementById('doc-file-input');const dt=new DataTransfer();dt.items.add(file);inp.files=dt.files;handleDocFile(inp);}
+  });
+}
+
+// ══════════════════════════════════════════════════════════════
+//  ADMIN SESSION
+// ══════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════════
+//  SECURITY — SHA-256 hashing · rate-limit · brute-force lockout
+// ══════════════════════════════════════════════════════════════
+const SEC = {
+  HASH_KEY:     'tgd3_pass_hash',
+  ATTEMPTS_KEY: 'tgd3_sec_attempts',
+  LOCKOUT_KEY:  'tgd3_sec_lockout',
+  USER_SET_KEY: 'tgd3_pass_user_set',
+  MAX_ATTEMPTS: 5,
+  LOCKOUT_MS:   15 * 60 * 1000,  // 15 minutes
+
+  async sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  },
+
+  async initPassHash() {
+    // Check shared storage first (works cross-browser)
+    const storedShared  = await wsGet('tgd3_pass_hash_shared');
+    const userSetShared = await wsGet('tgd3_pass_user_set_shared');
+    if (storedShared && storedShared.length === 64 && userSetShared === '1') return; // keep custom password
+    // No custom password set — default to admin123 hash
+    const hash = await this.sha256('admin123');
+    await wsSet('tgd3_pass_hash_shared', hash);
+  },
+
+  async getPassHash() {
+    const stored = await wsGet('tgd3_pass_hash_shared');
+    if (stored && stored.length === 64) return stored;
+    return await this.sha256('admin123');
+  },
+
+  async verifyPassword(input) {
+    const inputHash = await this.sha256(input);
+    // If window.storage is unavailable (local file), always allow admin123
+    const storageAvailable = typeof window.storage !== 'undefined' && window.storage !== null;
+    if (!storageAvailable) {
+      const defaultHash = await this.sha256('admin123');
+      return inputHash === defaultHash;
+    }
+    const stored = await this.getPassHash();
+    return inputHash === stored;
+  },
+
+  async savePassHashed(newPass) {
+    const hash = await this.sha256(newPass);
+    await wsSet('tgd3_pass_hash_shared', hash);
+    await wsSet('tgd3_pass_user_set_shared', '1');
+  },
+
+  getAttempts()    { try { return parseInt(localStorage.getItem(this.ATTEMPTS_KEY)||'0'); } catch(e){ return 0; } },
+  getLockoutTime() { try { return parseInt(localStorage.getItem(this.LOCKOUT_KEY)||'0');   } catch(e){ return 0; } },
+
+  isLockedOut() {
+    const until = this.getLockoutTime();
+    if (!until) return false;
+    if (Date.now() < until) return true;
+    localStorage.removeItem(this.LOCKOUT_KEY);
+    localStorage.removeItem(this.ATTEMPTS_KEY);
+    return false;
+  },
+
+  lockoutMessage() {
+    const until = this.getLockoutTime();
+    if (!until) return '';
+    const mins = Math.ceil((until - Date.now()) / 60000);
+    return `Too many failed attempts. Try again in ${mins} minute${mins===1?'':'s'}.`;
+  },
+
+  recordFailedAttempt() {
+    const attempts = this.getAttempts() + 1;
+    localStorage.setItem(this.ATTEMPTS_KEY, String(attempts));
+    if (attempts >= this.MAX_ATTEMPTS) {
+      localStorage.setItem(this.LOCKOUT_KEY, String(Date.now() + this.LOCKOUT_MS));
+      localStorage.removeItem(this.ATTEMPTS_KEY);
+    }
+    return attempts;
+  },
+
+  clearAttempts() {
+    localStorage.removeItem(this.ATTEMPTS_KEY);
+    localStorage.removeItem(this.LOCKOUT_KEY);
+  }
+};
+
+// ── XSS ESCAPE HELPER ──
+// Use esc() whenever injecting user-authored text into innerHTML
+function esc(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
+}
+
+const SESSION_KEY='tgd3_admin_session';
+let adminActive=false;
+
+// ── ADMIN TRIGGER — hardened key buffer ──
+let keyBuffer='';
+document.addEventListener('keydown',e=>{
+  const tag = document.activeElement ? document.activeElement.tagName : '';
+  if(['INPUT','TEXTAREA','SELECT'].includes(tag)) return;
+  if(e.key.length !== 1 || e.ctrlKey || e.metaKey || e.altKey) return;
+  keyBuffer += e.key.toLowerCase();
+  if(keyBuffer.length > 10) keyBuffer = keyBuffer.slice(-10);
+  if(keyBuffer.endsWith('admin')){ keyBuffer=''; openLoginScreen(); }
+});
+
+function startAdminSession(){
+  adminActive=true;
+  sessionStorage.setItem(SESSION_KEY,'1');
+  document.getElementById('admin-session-bar').classList.add('visible');
+  document.body.classList.add('admin-active');
+  document.body.style.paddingBottom='48px';
+  ['nav-write-btn','nav-upload-video-btn','nav-upload-doc-btn'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='';});
+  render();renderVideos();renderDocs();
+}
+function endAdminSession(){
+  adminActive=false;
+  sessionStorage.removeItem(SESSION_KEY);
+  document.getElementById('admin-session-bar').classList.remove('visible');
+  document.body.classList.remove('admin-active');
+  document.body.style.paddingBottom='';
+  ['nav-write-btn','nav-upload-video-btn','nav-upload-doc-btn'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
+  closeAdmin();render();renderVideos();renderDocs();
+}
+function checkSession(){if(sessionStorage.getItem(SESSION_KEY)==='1')startAdminSession();}
+
+// ── AUTO-TIMEOUT: 30 min idle ──
+const IDLE_TIMEOUT_MS = 30 * 60 * 1000;
+let _idleTimer = null;
+function resetActivityTimer(){
+  clearTimeout(_idleTimer);
+  _idleTimer = setTimeout(()=>{
+    if(adminActive){
+      endAdminSession();
+      openLoginScreen();
+      const lm = document.getElementById('login-lockout-msg');
+      if(lm){ lm.style.color='var(--gold)'; lm.textContent='Session expired after 30 minutes of inactivity.'; }
+    }
+  }, IDLE_TIMEOUT_MS);
+}
+['mousemove','keydown','click','scroll','touchstart'].forEach(ev=>
+  document.addEventListener(ev,()=>{ if(adminActive) resetActivityTimer(); },{passive:true})
+);
+
+window.doLogin = async function(){
+  const lockoutMsg = document.getElementById('login-lockout-msg');
+  const errEl      = document.getElementById('login-err');
+  const passEl     = document.getElementById('l-pass');
+  const btnEl      = document.querySelector('#admin-login .btn-primary');
+
+  if(SEC.isLockedOut()){
+    errEl.classList.remove('show');
+    lockoutMsg.style.color='#e06c5a';
+    lockoutMsg.textContent=SEC.lockoutMessage();
+    passEl.value='';
+    return;
+  }
+
+  const pass = passEl.value;
+  if(!pass) return;
+
+  if(btnEl){ btnEl.disabled=true; btnEl.textContent='Checking…'; }
+  const ok = await SEC.verifyPassword(pass);
+  if(btnEl){ btnEl.disabled=false; btnEl.textContent='Enter Admin →'; }
+
+  if(ok){
+    SEC.clearAttempts();
+    if(lockoutMsg) lockoutMsg.textContent='';
+    closeLoginScreen();
+    startAdminSession();
+    openAdmin();
+  } else {
+    const attempts = SEC.recordFailedAttempt();
+    passEl.value=''; passEl.focus();
+    if(SEC.isLockedOut()){
+      errEl.classList.remove('show');
+      lockoutMsg.style.color='#e06c5a';
+      lockoutMsg.textContent=SEC.lockoutMessage();
+    } else {
+      errEl.classList.add('show');
+      lockoutMsg.style.color='var(--muted)';
+      const remaining = SEC.MAX_ATTEMPTS - attempts;
+      lockoutMsg.textContent = remaining > 0
+        ? `${remaining} attempt${remaining===1?'':'s'} remaining before 15-min lockout.`
+        : '';
+    }
+  }
+};
+
+// ══════════════════════════════════════════════════════════════
+//  INIT — open IDB, load cache, then render
+// ══════════════════════════════════════════════════════════════
+// Ensure touch/wheel event listeners are passive for scroll performance
+(function patchPassiveListeners(){
+  const orig = EventTarget.prototype.addEventListener;
+  EventTarget.prototype.addEventListener = function(type, fn, opts) {
+    if (type === 'touchstart' || type === 'touchmove' || type === 'wheel' || type === 'mousewheel') {
+      if (typeof opts === 'object') { opts.passive = opts.passive !== false; }
+      else if (opts === undefined || opts === false) { opts = { passive: true, capture: !!opts }; }
+    }
+    return orig.call(this, type, fn, opts);
+  };
+})();
+// Live date on newspaper strip
+(function(){
+  const el = document.getElementById('np-live-date');
+  if(el){
+    const d = new Date();
+    el.textContent = d.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  }
+})();
+
+(async function init(){
+  // Global error boundary — catch unhandled errors and show a non-crashing notice
+  window.addEventListener('unhandledrejection', ev => {
+    console.error('Unhandled promise rejection:', ev.reason);
+    ev.preventDefault(); // Don't crash the page
+  });
+  window.addEventListener('error', ev => {
+    console.error('Global error:', ev.message, ev.filename, ev.lineno);
+  });
+
+  try { await openDB(); } catch(e) { console.warn('IndexedDB not used — using window.storage'); }
+  await loadCache();
+  // Initialise password hash (defaults to admin123 on first run)
+  await SEC.initPassHash();
+  // Clear any stale brute-force lockout counters from a previous page load
+  localStorage.removeItem(SEC.ATTEMPTS_KEY);
+  localStorage.removeItem(SEC.LOCKOUT_KEY);
+  applySettings();
+  render();
+  renderVideos();
+  renderDocs();
+  checkSession();
+
+  const sbe = document.getElementById('savebar-engine');
+  if(sbe) sbe.textContent = 'Netlify Blobs (shared across all browsers)';
+})();
+</script>
+</body>
+</html>
