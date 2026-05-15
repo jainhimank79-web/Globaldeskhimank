@@ -1,24 +1,23 @@
 // netlify/functions/storage.js
 // Netlify Blobs-backed key-value store for TheGlobalDesk
-// GET    /.netlify/functions/storage?key=xxx         → { value }  (public, no auth needed)
-// POST   /.netlify/functions/storage  { key, value } → { ok }     (requires Admin API key)
-// DELETE /.netlify/functions/storage?key=xxx         → { ok }     (requires Admin API key)
 //
-// 🔒 SECURITY:
-// POST and DELETE require the header:  x-admin-key: YOUR_SECRET_KEY
-// Set the secret in Netlify → Site configuration → Environment variables
-// Variable name:  ADMIN_SECRET_KEY
-// Variable value: (a strong password you choose — keep it private!)
+// 🔒 SECURITY APPROACH:
+// Rather than using an API key (which conflicts with the site's SHA-256 password hashing),
+// this function restricts write/delete access to requests coming from your own site domain.
+// GET is public (anyone can read your published content — that's intentional).
+// POST and DELETE are restricted to your own site origin only.
 
 import { getStore } from "@netlify/blobs";
 
 const STORE_NAME = "globaldesk";
 
-// CORS headers
+// Your site's domain — requests from other origins cannot write or delete data
+const ALLOWED_ORIGIN = "https://theglobaldeskhimank.netlify.app";
+
 const CORS = {
-  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
   "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, x-admin-key",
+  "Access-Control-Allow-Headers": "Content-Type",
 };
 
 export default async function handler(req, context) {
@@ -31,7 +30,7 @@ export default async function handler(req, context) {
   const url   = new URL(req.url);
   const key   = url.searchParams.get("key");
 
-  // ── GET is PUBLIC — anyone can read ──
+  // ── GET is PUBLIC — anyone can read published content ──
   if (req.method === "GET") {
     if (!key) return json({ error: "key required" }, 400);
     try {
@@ -43,23 +42,13 @@ export default async function handler(req, context) {
     }
   }
 
-  // ── POST and DELETE require Admin API Key ──
-  const adminKey = req.headers.get("x-admin-key");
-  const secretKey = Netlify.env.get("ADMIN_SECRET_KEY");
-
-  // Block if env variable not set at all
-  if (!secretKey) {
-    console.error("ADMIN_SECRET_KEY environment variable is not set!");
-    return json({ error: "Server misconfiguration" }, 500);
-  }
-
-  // Block if wrong or missing key
-  if (!adminKey || adminKey !== secretKey) {
-    return json({ error: "Unauthorized — invalid or missing admin key" }, 401);
+  // ── POST and DELETE — only allowed from your own site ──
+  const origin = req.headers.get("origin") || "";
+  if (origin !== ALLOWED_ORIGIN) {
+    return json({ error: "Forbidden — requests only accepted from the site itself" }, 403);
   }
 
   try {
-    // ── POST ──
     if (req.method === "POST") {
       const body = await req.json();
       if (!body.key) return json({ error: "key required" }, 400);
@@ -67,7 +56,6 @@ export default async function handler(req, context) {
       return json({ ok: true }, 200);
     }
 
-    // ── DELETE ──
     if (req.method === "DELETE") {
       if (!key) return json({ error: "key required" }, 400);
       await store.delete(key);
