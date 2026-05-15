@@ -1137,7 +1137,7 @@ footer{border-top:1px solid var(--border);padding:44px 8vw;display:flex;align-it
       <button class="btn-primary" style="flex:2" onclick="doLogin()">Enter Admin →</button>
     </div>
     <div class="login-hint" id="login-lockout-msg"></div>
-    <div style="margin-top:14px;font-size:11px;color:var(--muted);text-align:center;opacity:.6">Enter your <strong style="color:var(--muted2);font-family:monospace">ADMIN_SECRET_KEY</strong> (set in Netlify)</div>
+    <div style="margin-top:14px;font-size:11px;color:var(--muted);text-align:center;opacity:.6">Default password: <strong style="color:var(--muted2);font-family:monospace">admin123</strong></div>
   </div>
 </div>
 
@@ -1443,12 +1443,6 @@ function openDB() { return Promise.resolve(); }
 // ── Netlify storage helpers ──
 const STORAGE_API = '/.netlify/functions/storage';
 
-// Admin key is entered once at login and kept in memory only (never stored in browser)
-// It is the ADMIN_SECRET_KEY you set in Netlify environment variables
-let _adminKey = null;
-function setAdminKey(key) { _adminKey = key; }
-function clearAdminKey() { _adminKey = null; }
-
 async function wsGet(key) {
   try {
     const r = await fetch(`${STORAGE_API}?key=${encodeURIComponent(key)}`);
@@ -1459,26 +1453,13 @@ async function wsGet(key) {
 }
 async function wsSet(key, value) {
   try {
-    const headers = { 'Content-Type': 'application/json' };
-    if (_adminKey) headers['x-admin-key'] = _adminKey;
     const r = await fetch(STORAGE_API, {
       method: 'POST',
-      headers,
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ key, value })
     });
     return r.ok;
   } catch(e) { console.error('storage.set failed', key, e); return false; }
-}
-async function wsDelete(key) {
-  try {
-    const headers = {};
-    if (_adminKey) headers['x-admin-key'] = _adminKey;
-    const r = await fetch(`${STORAGE_API}?key=${encodeURIComponent(key)}`, {
-      method: 'DELETE',
-      headers
-    });
-    return r.ok;
-  } catch(e) { console.error('storage.delete failed', key, e); return false; }
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -2884,7 +2865,6 @@ function startAdminSession(){
 }
 function endAdminSession(){
   adminActive=false;
-  clearAdminKey(); // 🔒 clear admin key from memory on logout
   sessionStorage.removeItem(SESSION_KEY);
   document.getElementById('admin-session-bar').classList.remove('visible');
   document.body.classList.remove('admin-active');
@@ -2936,7 +2916,6 @@ window.doLogin = async function(){
   if(ok){
     SEC.clearAttempts();
     if(lockoutMsg) lockoutMsg.textContent='';
-    setAdminKey(pass); // 🔒 store admin key in memory for secure API calls
     closeLoginScreen();
     startAdminSession();
     openAdmin();
