@@ -2760,13 +2760,13 @@ const SEC = {
   },
 
   async initPassHash() {
-    // Check shared storage first (works cross-browser)
-    const storedShared  = await wsGet('tgd3_pass_hash_shared');
-    const userSetShared = await wsGet('tgd3_pass_user_set_shared');
-    if (storedShared && storedShared.length === 64 && userSetShared === '1') return; // keep custom password
-    // No custom password set — default to admin123 hash
+    // Check if a password hash already exists in storage — never overwrite it
+    const storedShared = await wsGet('tgd3_pass_hash_shared');
+    if (storedShared && storedShared.length === 64) return; // already set — leave it alone
+    // First ever run — save default hash for admin123
     const hash = await this.sha256('admin123');
     await wsSet('tgd3_pass_hash_shared', hash);
+    await wsSet('tgd3_pass_user_set_shared', '0');
   },
 
   async getPassHash() {
