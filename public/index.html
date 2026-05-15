@@ -2268,10 +2268,14 @@ async function changePass(){
   if(p1!==p2){msg.style.color='#e06c5a';msg.textContent='Passwords do not match.';return;}
   if(p1.length<8){msg.style.color='#e06c5a';msg.textContent='Minimum 8 characters.';return;}
   if(!/[0-9!@#$%^&*]/.test(p1)){msg.style.color='#e06c5a';msg.textContent='Include at least one number or special character.';return;}
-  await SEC.savePassHashed(p1);
-  msg.style.color='var(--gold)';msg.textContent='Password updated ✓ (stored as SHA-256 hash)';
-  document.getElementById('np1').value='';document.getElementById('np2').value='';
-  setTimeout(()=>{msg.style.display='none';},3000);
+  try {
+    await SEC.savePassHashed(p1);
+    msg.style.color='var(--gold)';msg.textContent='Password updated ✓ Refresh and log in with new password.';
+    document.getElementById('np1').value='';document.getElementById('np2').value='';
+    setTimeout(()=>{msg.style.display='none';},4000);
+  } catch(err) {
+    msg.style.color='#e06c5a';msg.textContent='Error: ' + err.message;
+  }
 }
 async function deleteAllPosts(){
   if(!confirm('Delete ALL your written posts? Sample posts will remain.'))return;
@@ -2759,38 +2763,26 @@ const SEC = {
     return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
   },
 
-  async initPassHash() {
-    // Check if a password hash already exists in storage — never overwrite it
-    const storedShared = await wsGet('tgd3_pass_hash_shared');
-    if (storedShared && storedShared.length === 64) return; // already set — leave it alone
-    // First ever run — save default hash for admin123
-    const hash = await this.sha256('admin123');
-    await wsSet('tgd3_pass_hash_shared', hash);
-    await wsSet('tgd3_pass_user_set_shared', '0');
-  },
+  // initPassHash removed — default password is seeded by storage.js on the server side
 
   async getPassHash() {
+    // Read hash directly from Netlify Blobs — seeded by server on first deploy
     const stored = await wsGet('tgd3_pass_hash_shared');
     if (stored && stored.length === 64) return stored;
+    // Fallback: return admin123 hash if server hasn't seeded yet
     return await this.sha256('admin123');
   },
 
   async verifyPassword(input) {
     const inputHash = await this.sha256(input);
-    // If window.storage is unavailable (local file), always allow admin123
-    const storageAvailable = typeof window.storage !== 'undefined' && window.storage !== null;
-    if (!storageAvailable) {
-      const defaultHash = await this.sha256('admin123');
-      return inputHash === defaultHash;
-    }
     const stored = await this.getPassHash();
     return inputHash === stored;
   },
 
   async savePassHashed(newPass) {
     const hash = await this.sha256(newPass);
-    await wsSet('tgd3_pass_hash_shared', hash);
-    await wsSet('tgd3_pass_user_set_shared', '1');
+    const ok = await wsSet('tgd3_pass_hash_shared', hash);
+    if (!ok) throw new Error('Password save failed — server did not confirm');
   },
 
   getAttempts()    { try { return parseInt(localStorage.getItem(this.ATTEMPTS_KEY)||'0'); } catch(e){ return 0; } },
@@ -2972,8 +2964,7 @@ window.doLogin = async function(){
 
   try { await openDB(); } catch(e) { console.warn('IndexedDB not used — using window.storage'); }
   await loadCache();
-  // Initialise password hash (defaults to admin123 on first run)
-  await SEC.initPassHash();
+  // Password hash is seeded by storage.js on the server — no client init needed
   // Clear any stale brute-force lockout counters from a previous page load
   localStorage.removeItem(SEC.ATTEMPTS_KEY);
   localStorage.removeItem(SEC.LOCKOUT_KEY);
