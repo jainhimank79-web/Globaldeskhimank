@@ -1,26 +1,36 @@
 // netlify/functions/storage.js
 // Netlify Blobs-backed key-value store for TheGlobalDesk
 //
-// 🔒 SECURITY APPROACH:
-// Rather than using an API key (which conflicts with the site's SHA-256 password hashing),
-// this function restricts write/delete access to requests coming from your own site domain.
-// GET is public (anyone can read your published content — that's intentional).
-// POST and DELETE are restricted to your own site origin only.
+// 🔒 SECURITY:
+// POST and DELETE only accepted from your own site origin.
+// GET is public (visitors need to read your published content).
+// On first ever run, seeds the default admin password hash (admin123) into Blobs.
 
 import { getStore } from "@netlify/blobs";
 
-const STORE_NAME = "globaldesk";
-
-// Your site's domain — requests from other origins cannot write or delete data
+const STORE_NAME    = "globaldesk";
 const ALLOWED_ORIGIN = "https://theglobaldeskhimank.netlify.app";
+const PASS_KEY       = "tgd3_pass_hash_shared";
 
 const CORS = {
-  "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
+  "Access-Control-Allow-Origin":  ALLOWED_ORIGIN,
   "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type",
 };
 
+// SHA-256 helper (runs in Netlify's edge runtime)
+async function sha256(str) {
+  const buf = await crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(str)
+  );
+  return Array.from(new Uint8Array(buf))
+    .map(b => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
 export default async function handler(req, context) {
+
   // Preflight
   if (req.method === "OPTIONS") {
     return new Response(null, { status: 204, headers: CORS });
@@ -30,11 +40,20 @@ export default async function handler(req, context) {
   const url   = new URL(req.url);
   const key   = url.searchParams.get("key");
 
-  // ── GET is PUBLIC — anyone can read published content ──
+  // ── GET — public, anyone can read ──
   if (req.method === "GET") {
     if (!key) return json({ error: "key required" }, 400);
     try {
-      const value = await store.get(key);
+      let value = await store.get(key);
+
+      // 🔒 First-ever run: if password hash not yet seeded, seed it now
+      if (key === PASS_KEY && (value === null || value === "")) {
+        const defaultHash = await sha256("admin123");
+        await store.set(PASS_KEY, defaultHash);
+        value = defaultHash;
+        console.log("[storage] Seeded default password hash into Netlify Blobs");
+      }
+
       if (value === null) return json({ value: null }, 200);
       return json({ value }, 200);
     } catch (err) {
@@ -42,10 +61,10 @@ export default async function handler(req, context) {
     }
   }
 
-  // ── POST and DELETE — only allowed from your own site ──
+  // ── POST and DELETE — only from your own site ──
   const origin = req.headers.get("origin") || "";
   if (origin !== ALLOWED_ORIGIN) {
-    return json({ error: "Forbidden — requests only accepted from the site itself" }, 403);
+    return json({ error: "Forbidden" }, 403);
   }
 
   try {
@@ -65,7 +84,7 @@ export default async function handler(req, context) {
     return json({ error: "method not allowed" }, 405);
 
   } catch (err) {
-    console.error("storage function error:", err);
+    console.error("storage error:", err);
     return json({ error: String(err) }, 500);
   }
 }
